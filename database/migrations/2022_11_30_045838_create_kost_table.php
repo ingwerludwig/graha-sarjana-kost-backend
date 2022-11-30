@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kost', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nama_kost');
+            $table->uuid('id')->primary()->index();
+            $table->string('nama_kost')->unique();
             $table->string('alamat');
             $table->string('fasilitas_listrik');
             $table->string('fasilitas_air');
