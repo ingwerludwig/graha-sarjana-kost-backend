@@ -18,9 +18,9 @@ class User extends Authenticatable
         'id',
         'username',
         'password',
+        'role_id',
         'created_at',
         'updated_at',
-        'role_id'
     ];
 
     protected $table = 'user';
