@@ -14,10 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kamar', function (Blueprint $table) {
-            $table->integer('id')->primary()->index();
+            $table->uuid('id')->primary()->index();
+            $table->integer('no_kamar');
             $table->string('fasilitas');
             $table->string('kamar_mandi');
-            $table->string('harga');
+            $table->integer('harga');
             $table->uuid('kost_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

@@ -18,16 +18,17 @@ return new class extends Migration
             $table->string('nama_penghuni');
             $table->date('date_mulai');
             $table->integer('durasi_kost');
+            $table->integer('no_kamar');
             $table->string('metode_pembayaran');
             $table->string('bukti_pembayaran')->nullable();
             $table->integer('total_harga');
             $table->string('status')->default('awaiting_payment');
             $table->date('tanggal_pembayaran')->nullable();
-            $table->integer('kamar_id');
+            $table->uuid('kost_id');
             $table->uuid('user_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('kamar_id')->references('id')->on('kamar');
+            $table->foreign('kost_id')->references('id')->on('kost');
             $table->foreign('user_id')->references('id')->on('user');
         });
     }

@@ -24,9 +24,9 @@ class Kost extends Model
         'updated_at',
     ];
 
-    protected $table = 'user';
+    protected $table = 'kost';
 
-    public static function addAdditionalData(Array $req, $umkm): Array
+    public static function addAdditionalData(Array $req): Array
     {
         $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();

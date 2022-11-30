@@ -15,8 +15,10 @@ class KamarKost extends Model
     protected $fillable = [
         'id',
         'fasilitas',
+        'no_kamar',
         'kamar_mandi',
         'harga',
+        'no_kamar',
         'kost_id',
         'created_at',
         'updated_at',
@@ -24,8 +26,9 @@ class KamarKost extends Model
 
     protected $table = 'kamar';
 
-    public static function addAdditionalData(Array $req, $umkm): Array
+    public static function addAdditionalData(Array $req): Array
     {
+        $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
 

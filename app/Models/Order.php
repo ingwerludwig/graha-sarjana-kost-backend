@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,6 +19,7 @@ class Order extends Model
         'nama_penghuni',
         'date_mulai',
         'durasi_kost',
+        'no_kamar',
         'metode_pembayaran',
         'bukti_pembayaran',
         'total_harga',
@@ -31,11 +33,13 @@ class Order extends Model
 
     protected $table = 'order';
 
-    public static function addAdditionalData(Array $req, $umkm): Array
+    public static function addAdditionalData(Array $req): Array
     {
+        
         $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
+        $req['user_id'] = Auth::user()->id;
 
         return $req;
     }
