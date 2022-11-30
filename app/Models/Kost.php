@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KamarKost extends Model
+class Kost extends Model
 {
     use HasFactory;
 
@@ -13,18 +13,20 @@ class KamarKost extends Model
 
     protected $fillable = [
         'id',
-        'fasilitas',
-        'kamar_mandi',
-        'harga',
-        'kost_id',
+        'nama_kost',
+        'alamat',
+        'fasilitas_listrik',
+        'fasilitas_air',
+        'no_telp',
         'created_at',
         'updated_at',
     ];
 
-    protected $table = 'kamar';
+    protected $table = 'user';
 
     public static function addAdditionalData(Array $req, $umkm): Array
     {
+        $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
 
