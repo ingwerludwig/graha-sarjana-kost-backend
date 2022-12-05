@@ -1,7 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<h1>Binar Challenge - Reservasi Biskop API</h1>
+<h1>PPL Implementation - Graha Sarjana Kost</h1>
 
 Graha-sarja-kost App is an Implementation of Software Design's Final Project using Laravel 8 on server-side and Vue.js on the client-side
 Built with Monolith Architecture combined with Repository Design Pattern
@@ -31,7 +31,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 **Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type
 
-Sixth, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow those instruction based on your devices type
+**Sixth**, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow those instruction based on your devices type
 
 
 ### Installation
@@ -52,18 +52,24 @@ Sixth, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow t
     ```sh
     composer install
     ```
+5. Setup your .env to your local configuration
+
+6. Generate JWT Secret on your app
+    ```sh
+    php artisan jwt:secret
+    ```
     
-5.  Migrate your database
+7.  Migrate your database
    ```sh
    php artisan migrate
    ```   
 
-6. Run your Vue.js
+8. Run your Vue.js
     ```sh
     npm run watch
     ```
 
-7. Run your Laravel 8
+9. Run your Laravel 8
     ```sh
     php artisan serve
     ```
