@@ -53,40 +53,40 @@ Built with Monolith Architecture combined with Repository Design Pattern
   
 2. Create Database in PostgreSQL named **graha-sarjana-kost**
 
-3. Download and Install Vue.js Dependencies
+3. Download and Install Vue.js Dependencies in terminal
     ```sh
     npm install
     ```
 
-4. Download and Install Laravel 8 Dependencies
+4. Download and Install Laravel 8 Dependencies in terminal
     ```sh
     composer install
     ```
-5. Setup your .env to your local configuration
+5. In your cloned proejct, setup your .env to your local configuration
 
-6. Generate JWT Secret on your app
+6. Generate JWT Secret on your app in terminal
     ```sh
     php artisan jwt:secret
     ```
     
-7.  Migrate your database
+7.  Migrate your database in terminal
    ```sh
    php artisan migrate
    ```   
 
-8. Run your Vue.js
+8. Run your Vue.js in terminal
     ```sh
     npm run watch
     ```
 
-9. Run your Laravel 8
+9. Run your Laravel 8 in terminal
     ```sh
     php artisan serve
     ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-_For more examples request and response, please refer to the [Documentation](https://example.com](https://smeci-abdimas.postman.co/workspace/FP-PPL~5fd8b115-591f-47ac-955a-586d97012f60/collection/16008949-e8771ea9-2d7e-4b2a-96b2-22299f9084d3?action=share&creator=16008949)_
+_For more examples request and response, please refer to the [Documentation](https://smeci-abdimas.postman.co/workspace/FP-PPL~5fd8b115-591f-47ac-955a-586d97012f60/collection/16008949-e8771ea9-2d7e-4b2a-96b2-22299f9084d3?action=share&creator=16008949)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,12 +109,6 @@ Don't forget to give the project a star! Thanks again!
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-
-
-<!-- CONTACT -->
-## Contact
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
