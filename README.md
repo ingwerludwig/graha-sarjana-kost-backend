@@ -1,7 +1,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<h1>PPL Implementation - Graha Sarjana Kost</h1>
+
+### PPL Implementation - Graha Sarjana Kost
+<h1>Project Collaborator By Group 6</h1>
+| Nama                                  | NRP        |
+|---------------------------------------|------------|
+| Ida Bagus Kade Rainata Putra Wibawa   | 5025201235 |
+| Muhammad Amin                         | 5025201251 |
+| Ingwer Ludwig Nommensen               | 5025201259 |
+| Muhammad Afdal Abdallah               | 5025201163 |
+| Kadek Ari Dharmika                    | 5025201239 |
+
 
 Graha-sarja-kost App is an Implementation of Software Design's Final Project using Laravel 8 on server-side and Vue.js on the client-side
 Built with Monolith Architecture combined with Repository Design Pattern
@@ -22,14 +32,14 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 **Second**, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
 
-**Third**, install laravel from downloaded composer 
+**Third**, install laravel from downloaded composer
     ```sh
     composer global require laravel/installer
     ```
     
 **Forth**, install <a href="https://www.postgresql.org/download">PostgreSQL</a> and follow those instruction based on your devices type
 
-**Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type
+**Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type if you want to test out your API
 
 **Sixth**, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow those instruction based on your devices type
 
@@ -41,7 +51,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
    git clone https://github.com/ingwerludwig/graha-sarjana-kost-backend.git
    ```
   
-2. Create Database in PostgreSQL named graha-sarjana-kost
+2. Create Database in PostgreSQL named **graha-sarjana-kost**
 
 3. Download and Install Vue.js Dependencies
     ```sh
