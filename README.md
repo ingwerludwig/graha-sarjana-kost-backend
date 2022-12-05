@@ -13,7 +13,7 @@
 | Kadek Ari Dharmika                    | 5025201239 |
 
 
-Graha-sarja-kost App is an Implementation of Software Design's Final Project using Laravel 8 on server-side and Vue.js on the client-side
+Graha-sarja-kost App is an Implementation of Software Design's Final Project using Framework Laravel 8 on server-side and Framework Vue.js on the client-side
 Built with Monolith Architecture combined with Repository Design Pattern
 
 ### Built With
@@ -86,8 +86,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-_For more examples request and response, please refer to the [Documentation]([https://example.com](https://smeci-abdimas.postman.co/workspace/FP-PPL~5fd8b115-591f-47ac-955a-586d97012f60/collection/16008949-e8771ea9-2d7e-4b2a-96b2-22299f9084d3?action=share&creator=16008949))_
+_For more examples request and response, please refer to the [Documentation](https://example.com](https://smeci-abdimas.postman.co/workspace/FP-PPL~5fd8b115-591f-47ac-955a-586d97012f60/collection/16008949-e8771ea9-2d7e-4b2a-96b2-22299f9084d3?action=share&creator=16008949)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
