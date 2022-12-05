@@ -7,11 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<p align="center">
-  <img src="src/assets/images/logo.png" height="100" />
-</p>
-
-A bare-bones starter-template to get your hands dirty with awesome [Vue.js](https://github.com/vuejs/vue) library.
+![image](https://user-images.githubusercontent.com/54592376/205731352-0bb97163-c712-4f57-a34a-41d0da26096b.png)
 
 
 <!-- ABOUT THE PROJECT -->
