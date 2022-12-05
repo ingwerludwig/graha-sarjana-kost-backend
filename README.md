@@ -3,7 +3,7 @@
 
 
 ### PPL Implementation - Graha Sarjana Kost
-<h1>Project Collaborator By Group 6</h1>
+
 | Nama                                  | NRP        |
 |---------------------------------------|------------|
 | Ida Bagus Kade Rainata Putra Wibawa   | 5025201235 |
