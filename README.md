@@ -7,7 +7,10 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-![image](https://user-images.githubusercontent.com/54592376/205731352-0bb97163-c712-4f57-a34a-41d0da26096b.png)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/54592376/205731352-0bb97163-c712-4f57-a34a-41d0da26096b.png" width="150" height="150">
+</p>
 
 
 <!-- ABOUT THE PROJECT -->
