@@ -18,17 +18,17 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 ### Prerequisites
 
-First thing first, install <a href="https://www.php.net/manual/en/install.php">PHP</a> and follow those instruction based on your devices type
+**First thing first**, install <a href="https://www.php.net/manual/en/install.php">PHP</a> and follow those instruction based on your devices type
 
-Second, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
+**Second**, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
 
-Third, install laravel from downloaded composer 
+**Third**, install laravel from downloaded composer 
     ```sh
     composer global require laravel/installer
     ```
-Forth, install <a href="https://www.postgresql.org/download">PostgreSQL</a> and follow those instruction based on your devices type
+**Forth**, install <a href="https://www.postgresql.org/download">PostgreSQL</a> and follow those instruction based on your devices type
 
-Fifth, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type
+**Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type
 
 Sixth, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow those instruction based on your devices type
 
