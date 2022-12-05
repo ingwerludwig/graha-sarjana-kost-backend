@@ -12,6 +12,8 @@
   <img src="https://user-images.githubusercontent.com/54592376/205731352-0bb97163-c712-4f57-a34a-41d0da26096b.png" width="150" height="150">
 </p>
 
+A bare-bones starter-template to get your hands dirty with awesome [Vue.js](https://github.com/vuejs/vue) library.
+
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
