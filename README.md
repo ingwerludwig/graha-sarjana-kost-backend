@@ -33,7 +33,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 **Second**, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
 
 **Third**, install laravel from downloaded composer
-    ```sh
+    ```
     composer global require laravel/installer
     ```
     
