@@ -37,12 +37,11 @@
                     </div>
                 </div>
                 <div class="price-container">
-                    <div style=" margin: 0;
-                    position: relative;
+                    <div style=" margin: 0;position: relative;
                     top: 50%;
                     -ms-transform: translateY(-50%);
                     transform: translateY(-50%);">
-                        <div id="price">Rp {{room.harga}}/bulan</div>
+                        <div id="price">Rp {{toPrice(room.harga)}}/bulan</div>
                         <router-link :to="`booking/${room.id}`" style="text-decoration: none;"><button class="green">BOOK</button></router-link>
                     </div>
                 </div>
@@ -69,6 +68,14 @@ import axios from 'axios'
                         room.fasilitas = room.fasilitas.split(',')
                     })
                 ))
+            },
+            toPrice(price) {
+                var new_price = price.toString()
+                new_price = new_price.split('')
+                new_price.splice(new_price.length-3*1,0,'.')
+                new_price.splice(new_price.length-1-3*2,0,'.')
+                console.log(new_price)
+                return new_price.join('')
             }
         },
         mounted(){
