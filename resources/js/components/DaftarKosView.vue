@@ -66,7 +66,7 @@ import axios from 'axios'
                     this.rooms = response.data.kamar,
                     console.log(response.data),
                     this.rooms.forEach((room) => {
-                        room.fasilitas = room.data.fasilitas.split(',')
+                        room.fasilitas = room.fasilitas.split(',')
                     })
                 ))
             }
