@@ -43,7 +43,7 @@
                     -ms-transform: translateY(-50%);
                     transform: translateY(-50%);">
                         <div id="price">Rp {{room.harga}}/bulan</div>
-                        <button class="green">BOOK</button>
+                        <router-link :to="`booking/${room.id}`" style="text-decoration: none;"><button class="green">BOOK</button></router-link>
                     </div>
                 </div>
             </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default{
         data (){
             return{
@@ -62,7 +63,7 @@
         methods:{
             getRooms (){
                 axios.get('/getKamarTersedia').then(response => (
-                    this.rooms = response.kamar
+                    this.rooms = response.kamar,
                     this.rooms.forEach((room) => {
                         room.fasilitas = room.fasilitas.split(',')
                     })
