@@ -27,11 +27,14 @@ class OrderRequest extends FormRequest
     {
         return [
             'nama_penghuni' => 'required|string',
+            'no_telp' => 'required|string',
+            'no_kerabat' => 'required|string',
             'date_mulai' => 'required|date',
             'durasi_kost' => 'required|integer',
+            'document' => ['required', 'mimetypes:application/pdf,image/jpeg,image/png,image/jpg', 'max:10240'],
+
             'metode_pembayaran' => 'required|string',
             'no_kamar' => 'required|integer',
-            'kamar_id' => ['required', 'exists:App\Models\KamarKost,id']
         ];
     }
 

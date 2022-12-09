@@ -27,13 +27,14 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/getKost', [KosController::class, 'getKost']);
 
     Route::post('/admin/create_kamar', [KamarController::class, 'addKamar']);
-    Route::get('/getKamarTersedia', [KamarController::class, 'getAvailableKamar']);
+    
 
     Route::post('/create_order', [OrderController::class, 'createOrder']);
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
 });
 
 Route::withoutMiddleware('auth:api')->group(function() {
+    Route::get('/getKamarTersedia', [KamarController::class, 'getAvailableKamar']);
     Route::post('create_user', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 });

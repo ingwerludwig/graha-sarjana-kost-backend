@@ -17,10 +17,13 @@ class Order extends Model
     protected $fillable = [
         'id',
         'nama_penghuni',
+        'no_telp',
+        'no_kerabat',
         'date_mulai',
         'durasi_kost',
         'no_kamar',
         'metode_pembayaran',
+        'foto_ktp',
         'bukti_pembayaran',
         'total_harga',
         'status',

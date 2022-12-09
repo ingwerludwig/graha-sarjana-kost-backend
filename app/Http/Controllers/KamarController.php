@@ -43,7 +43,6 @@ class KamarController extends Controller
 
     public function getAvailableKamar()
     {
-        $existKos = KamarKost::first()->get();
 
         $kamar = KamarKost::where('is_available',true)
         ->get();
@@ -65,7 +64,7 @@ class KamarController extends Controller
 
         return response()->json([
             'success' => true,
-            'kamar' => $kamar[0]
+            'kamar' => $kamar
         ], 201);
     }
 

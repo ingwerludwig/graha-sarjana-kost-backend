@@ -10,11 +10,11 @@
             </div>
             <div>
                 <label for="">Email</label>
-                <input type="text" name="email" placeholder="Enter email...">
+                <input type="text" name="email" v-model="email" placeholder="Enter email...">
             </div>
             <div>
                 <label for="">Password</label>
-                <input type="text" name="password" placeholder="Enter password...">
+                <input type="text" name="password" v-model="password" placeholder="Enter password...">
             </div>
             <div>
                 <button type="sumit" class="green">{{buttTxt}}</button>
@@ -37,15 +37,16 @@
             isLogin: true,
             message: "Don't have any account yet?",
             span: ' Sign Up',
-            username: '',
+            fullname:'',
             email: '',
-            password: ''
+            password:'',
+
         }
     },
     methods: {
         register(){
             axios.post('./api/create_user',{
-                username:this.username,
+                username:this.fullname,
                 email:this.email,
                 password:this.password})
         },

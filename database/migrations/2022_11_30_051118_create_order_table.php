@@ -14,21 +14,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('order', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nama_penghuni');
+            $table->uuid('id')->primary()->index();
+            $table->string('nama_penghuni')->index();
+            $table->string('no_telp');
+            $table->string('no_kerabat');
             $table->date('date_mulai');
+            $table->date('date_selesai');
             $table->integer('durasi_kost');
             $table->integer('no_kamar');
             $table->string('metode_pembayaran');
             $table->string('bukti_pembayaran')->nullable();
             $table->integer('total_harga');
-            $table->string('status')->default('awaiting_payment');
+            $table->string('status')->default('AWAITING_PAYMENT')->index();
+            $table->string('deskripsi_status')->nullable()->index();
             $table->date('tanggal_pembayaran')->nullable();
-            $table->uuid('kost_id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->index();
+            $table->uuid('kamar_id');
+            $table->foreign('kamar_id')->references('id')->on('kamar');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('kost_id')->references('id')->on('kost');
             $table->foreign('user_id')->references('id')->on('user');
         });
     }
