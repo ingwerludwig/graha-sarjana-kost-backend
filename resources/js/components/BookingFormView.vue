@@ -61,8 +61,8 @@
                                 <option value="BNI/08222222">BNI/08222222</option>
                             </select>
                             <div style="display: flex;">
-                                <img src="../assets/bca.png" alt="">
-                                <img src="../assets/bni.png" alt="">
+                                <img src="../../assets/bca.png" alt="">
+                                <img src="../../assets/bni.png" alt="">
                             </div>
                         </label>
                     </div>

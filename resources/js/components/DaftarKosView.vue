@@ -19,7 +19,7 @@
         </div>
         <div class="rooms-container">
             <div class="room" v-for="room in rooms" :key="room.id">
-                <div id="picture"><img src="../assets/kamar/kamar1.jpg" alt=""></div>
+                <div id="picture"><img src="../../assets/kamar/kamar1.jpg" alt=""></div>
                 <div class="room_details">
                     <div style="font-size: 18px; font-weight:550;">Kamar {{ room.no_kamar }}</div>
                     <div class="fasilitas">
@@ -62,10 +62,11 @@ import axios from 'axios'
         },
         methods:{
             getRooms (){
-                axios.get('/getKamarTersedia').then(response => (
-                    this.rooms = response.kamar,
+                axios.get('./api/getKamarTersedia').then(response => (
+                    this.rooms = response.data.kamar,
+                    console.log(response.data),
                     this.rooms.forEach((room) => {
-                        room.fasilitas = room.fasilitas.split(',')
+                        room.fasilitas = room.data.fasilitas.split(',')
                     })
                 ))
             }
