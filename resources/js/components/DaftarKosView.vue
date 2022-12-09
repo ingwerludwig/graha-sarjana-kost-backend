@@ -18,20 +18,20 @@
             </div>
         </div>
         <div class="rooms-container">
-            <div class="room">
-                <div id="picture"><img src="../../assets/kamar/kamar1.jpg" alt=""></div>
+            <div class="room" v-for="room in rooms" :key="room.id">
+                <div id="picture"><img src="../assets/kamar/kamar1.jpg" alt=""></div>
                 <div class="room_details">
-                    <div style="font-size: 18px; font-weight:550;">Kamar 130</div>
+                    <div style="font-size: 18px; font-weight:550;">Kamar {{ room.no_kamar }}</div>
                     <div class="fasilitas">
                         <div class="col1">
-                            <div><font-awesome-icon icon="fa-solid fa-maximize" /><div>Ukuran 3 x 4 m.persegi</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-shower" /><div>Kamar Mandi Dalam</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-toilet" /><div>Kloset Duduk</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-maximize" /><div>Ukuran {{room.fasilitas[0]}}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-shower" /><div>{{room.kamar_mandi}}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-toilet" /><div>{{room.fasilitas[1]}}</div></div>
                             <div><font-awesome-icon icon="fa-solid fa-bed" /><div>Kasur Single</div></div>
                         </div>
                         <div class="col1">
-                            <div><font-awesome-icon icon="fa-solid fa-boxes-packing" /><div>Lemari</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-bolt" /><div>Listrik Token</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-boxes-packing" /><div>{{room.fasilitas[2]}}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-bolt" /><div>{{room.fasilitas[3]}}</div></div>
 
                         </div>
                     </div>
@@ -42,23 +42,7 @@
                     top: 50%;
                     -ms-transform: translateY(-50%);
                     transform: translateY(-50%);">
-                        <div id="price">Rp 1.300.000/bulan</div>
-                        <button class="green">BOOK</button>
-                    </div>
-                </div>
-            </div>
-            <div class="room">
-                <div id="picture">INI GAMBAR</div>
-                <div class="room_details">
-                    Detail Kamar
-                </div>
-                <div class="price-container">
-                    <div style=" margin: 0;
-                    position: relative;
-                    top: 50%;
-                    -ms-transform: translateY(-50%);
-                    transform: translateY(-50%);">
-                        <div id="price">Rp 1.300.000 /bulan</div>
+                        <div id="price">Rp {{room.harga}}/bulan</div>
                         <button class="green">BOOK</button>
                     </div>
                 </div>
@@ -69,6 +53,26 @@
 </template>
 
 <script>
+    export default{
+        data (){
+            return{
+                rooms:[]
+            }
+        },
+        methods:{
+            getRooms (){
+                axios.get('/getKamarTersedia').then(response => (
+                    this.rooms = response.kamar
+                    this.rooms.forEach((room) => {
+                        room.fasilitas = room.fasilitas.split(',')
+                    })
+                ))
+            }
+        },
+        mounted(){
+            this.getRooms()
+        }
+    }
 
 </script>
 

@@ -1,41 +1,88 @@
 <template>
+    <div style="display: flex;"><button class="white" @click="$router.go(-1)">Kembali</button></div>
     <div class="container">
-        <form action="POST">
             <div class="kiri">
-                <div class="wrapper">
+                <div style="font-size: 32px; font-weight: bold; padding: 10px 0px;">FORM IDENTITAS</div>
+                <div class="form-wrapper">
                     <div>
-                        <label for="">Nama Lengkap</label>
-                        <input type="text" name="" id="">
+                        <label for="">
+                            Nama Lengkap
+                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap...">
+                        </label>
+                        
                     </div>
                     <div>
-                        <label for="">Nomor Telepon</label>
-                        <input type="text" name="" id="">
+                        <label for="">
+                            Nomor Telepon
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon...">
+                        </label>
+                        
                     </div>
                     <div>
-                        <label for="">Nomor Kerabat/Orang Tua</label>
-                        <input type="text" name="" id="">
+                        <label for="">
+                            Nomor Kerabat/Orang Tua
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua...">
+                        </label>
+                        
                     </div>
                     <div>
-                        <label for="">Tanggal Masuk</label>
-                        <input type="date" name="" id="">
+                        <div>
+                            <label for="">
+                                Tanggal Masuk
+                                <input type="date" name="" id="">
+                            </label>
+                            
+                        </div>
+                        <div style="margin-left: 10%;">
+                            <label for="">
+                                Durasi
+                                <select name="durations" id="durations">
+                                    <option value="30">1 Bulan</option>
+                                    <option value="365">1 Tahun</option>
+                                </select>
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        <label for="">Durasi</label>
-                        <select name="durations" id="durations">
-                            <option value="30">1 Bulan</option>
-                            <option value="365">1 Tahun</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for=""><b>Unggah Foto KTP</b></label>
-                        <input type="file" name="" id="">
+                    <div style="border: none;">
+                        <label for="">
+                            Unggah Foto KTP
+                            <input type="file" name="" id="" style="border: none;">
+                        </label>
                     </div>
                 </div>
             </div>
             <div class="kanan">
+                <div class="pembayaran">
+                    <div style="font-size: 32px; font-weight: bold; padding: 10px 0px;">METODE PEMBAYARAN</div>
+                    <div class="content">
+                        <label for="">
+                            Pilih Bank/Nomor Rekening
+                            <select name="" id="">
+                                <option value="BNI/08222222">BNI/08222222</option>
+                            </select>
+                            <div style="display: flex;">
+                                <img src="../assets/bca.png" alt="">
+                                <img src="../assets/bni.png" alt="">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="detail-booking">
+                    <div style="font-size: 32px; font-weight: bold; padding: 10px 0px;">DETAIL BOOKING</div>
+                    <div style="display: flex;">
+                        <div class="gambar">
 
+                        </div>
+                        <div>
+                            Kamar 103
+                            <div>Rp 1.300.000</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="green" style="width: 90%; margin-top: 30px;">BOOKING SEKARANG</button>
+                </div>
             </div>
-        </form>
     </div>
 </template>
 
@@ -43,16 +90,80 @@
 
 </script>
 
-<style>
+<style scoped>
+.container{
+    padding: 30px 30px;
+    display: flex;
+}
 .kiri{
-    width: 50%;
+    width: 40%;
     padding: 20px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.094);
 
 }
-.wrapper{
+.form-wrapper{
+    font-weight: 550;
+}
+.form-wrapper > div{
+    display: flex;
+    padding:10px 10px;
+}
+.form-wrapper > div > div{
+    display: flex;
+}
+.form-wrapper input{
+    margin: 10px 0px;
+}
+.form-wrapper label{
+    text-align: left;
+    width: 100%;
+}
+select{
+    display: block;
+    margin: 10px 0px;
+    padding: 5px 0px;
+    padding-left: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    height: 38px;
+    width: 100%;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.kanan{
+    font-weight: 550;
+    width: 50%;
+    margin-left: 50px;
+}
+.pembayaran{
+    padding: 20px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.094);
+}
+.content{
+    text-align: left;
+}
+.detail-booking{
+    margin-top: 40px;
+    padding: 20px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.094);
+}
+
+.gambar{
+    width: 100px;
+    height: 100px;
     border: 1px solid black;
 }
-.kanan{
-    width: 50%;
+img{
+    margin-left: 10px;
+    width: 50px;
+    height: auto;
 }
+
 </style>
