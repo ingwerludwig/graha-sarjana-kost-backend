@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function() {
 
 Route::withoutMiddleware('auth:api')->group(function() {
     Route::get('/getKamarTersedia', [KamarController::class, 'getAvailableKamar']);
+    Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
     Route::post('create_user', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 });

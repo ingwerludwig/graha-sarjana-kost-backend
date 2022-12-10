@@ -68,4 +68,21 @@ class KamarController extends Controller
         ], 201);
     }
 
+    public function getKamarDetails($kamar_id){
+        $existKamar = KamarKost::where('id',$kamar_id)->get();
+
+        if (!$existKamar || $existKamar == null)
+        {
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t get kamar data right now.'],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'kamar' => $existKamar
+        ], 201);
+    }
+
 }
