@@ -87,6 +87,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 
 export default{
@@ -170,6 +171,7 @@ export default{
         this.getRoom()
     }
 }
+
 </script>
 
 <style scoped>

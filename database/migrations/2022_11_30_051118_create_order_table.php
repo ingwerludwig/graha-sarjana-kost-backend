@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('status')->default('AWAITING_PAYMENT')->index();
             $table->string('deskripsi_status')->nullable()->index();
             $table->date('tanggal_pembayaran')->nullable();
+            $table->string('foto_ktp');
+            $table->string('nama_document_ktp');
             $table->uuid('user_id')->index();
             $table->uuid('kamar_id');
             $table->foreign('kamar_id')->references('id')->on('kamar');

@@ -20,13 +20,16 @@ class Order extends Model
         'no_telp',
         'no_kerabat',
         'date_mulai',
+        'date_selesai',
         'durasi_kost',
         'no_kamar',
         'metode_pembayaran',
+        'nama_document_ktp',
         'foto_ktp',
         'bukti_pembayaran',
         'total_harga',
         'status',
+        'deskripsi_status',
         'tanggal_pembayaran',
         'kamar_id',
         'user_id',
@@ -38,11 +41,11 @@ class Order extends Model
 
     public static function addAdditionalData(Array $req): Array
     {
-        
         $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
         $req['user_id'] = Auth::user()->id;
+        $req['nama_document_ktp'] = $req['foto_ktp']->getClientOriginalName();
 
         return $req;
     }
