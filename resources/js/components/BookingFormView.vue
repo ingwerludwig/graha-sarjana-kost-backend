@@ -7,21 +7,21 @@
                     <div>
                         <label for="">
                             Nama Lengkap
-                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap...">
+                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.username">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Telepon
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon...">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.noTelp">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Kerabat/Orang Tua
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua...">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.noOrtu">
                         </label>
                         
                     </div>
@@ -29,16 +29,16 @@
                         <div>
                             <label for="">
                                 Tanggal Masuk
-                                <input type="date" name="" id="">
+                                <input type="date" name="" id="" v-model="form.tglMasuk">
                             </label>
                             
                         </div>
                         <div style="margin-left: 10%;">
                             <label for="">
                                 Durasi
-                                <select name="durations" id="durations">
-                                    <option value="30">1 Bulan</option>
-                                    <option value="365">1 Tahun</option>
+                                <select name="durations" id="durations" v-model="form.durasi" @change="updateHarga(form.durasi)">
+                                    <option value="1" >1 Bulan</option>
+                                    <option value="12">1 Tahun</option>
                                 </select>
                             </label>
                         </div>
@@ -46,7 +46,7 @@
                     <div style="border: none;">
                         <label for="">
                             Unggah Foto KTP
-                            <input type="file" name="" id="" style="border: none;">
+                            <input type="file" name="" id="" style="border: none;" @change="onFileChange">
                         </label>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="content">
                         <label for="">
                             Pilih Bank/Nomor Rekening
-                            <select name="" id="">
+                            <select name="" id="" v-model="form.metodeBayar">
                                 <option value="BNI/08222222">BNI/08222222</option>
                             </select>
                             <div style="display: flex;">
@@ -73,50 +73,105 @@
                         <div class="gambar">
 
                         </div>
-                        <div>
-                            Kamar 103
-                            <div>Rp 1.300.000</div>
+                        <div style="text-align: left; padding: 10px 20px;">
+                            Kamar {{kamar.no_kamar}}
+                            <div style="font-size: 30px;">Rp {{harga}}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button class="green" style="width: 90%; margin-top: 30px;">BOOKING SEKARANG</button>
+                    <button class="green" style="width: 90%; margin-top: 30px;" @click="sendForm()">BOOKING SEKARANG</button>
                 </div>
             </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-    export default{
-        data (){
-            return{
-                rooms:[]
-            }
-        },
-        methods:{
-            getRooms (){
-                axios.get('./api/getKamarDetails'+id).then(response => (
-                    this.rooms = response.data.kamar,
-                    console.log(response.data),
-                    this.rooms.forEach((room) => {
-                        room.fasilitas = room.fasilitas.split(',')
-                    })
-                ))
+
+import axios from 'axios';
+
+export default{
+    data(){
+        return{
+            idKamar: this.$route.params.id,
+            kamar: {
+                no_kamar:'4'
             },
-            toPrice(price) {
-                var new_price = price.toString()
-                new_price = new_price.split('')
-                new_price.splice(new_price.length-3*1,0,'.')
-                new_price.splice(new_price.length-1-3*2,0,'.')
-                console.log(new_price)
-                return new_price.join('')
+            harga:'',
+            form: {
+                username: '',
+                noTelp: '',
+                noOrtu: '',
+                tglMasuk: '',
+                durasi: '1',
+                foto: '',
+                metodeBayar:'BNI/08222222',
+                kamarId:''
+            }
+        }
+    },
+    methods:{
+       async getRoom(){
+            try {
+                const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
+                console.log(res.data)
+                this.kamar = res.data.kamar[0]
+                this.harga = this.toPrice(this.kamar.harga)
+            } catch (err) {
+                console.log('error')
+            }
+       },
+        toPrice(price) {
+            console.log(price);
+            var new_price = price.toString()
+            new_price = new_price.split('')
+            var n_dots = Math.floor(new_price.length / 3)
+            console.log(n_dots);
+            var it = 1
+            // 1000.000
+            for(it; it<n_dots+1; it++){
+                var pos = new_price.length+1-it-3*it
+                console.log(it, pos);
+                new_price.splice(pos,0,'.')
+            }
+            return new_price.join('')
+        },
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            var image = new Image();
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.form.foto = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        async sendForm(){
+            try {
+                this.form.kamarId = this.idKamar
+                console.log(this.form)
+                await axios.post('/api/create_order', this.form)
+            } catch (error) {
+                console.log(error)
             }
         },
-        mounted(){
-            this.getRooms()
+        updateHarga(val){
+            console.log(val);
+            this.harga =  this.kamar.harga * val
+            this.harga = this.toPrice(this.harga)
         }
+    },
+    mounted(){
+        this.getRoom()
     }
+}
+
 </script>
 
 <style scoped>
