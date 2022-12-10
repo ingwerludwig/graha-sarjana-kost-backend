@@ -87,7 +87,36 @@
 </template>
 
 <script>
-
+import axios from 'axios'
+    export default{
+        data (){
+            return{
+                rooms:[]
+            }
+        },
+        methods:{
+            getRooms (){
+                axios.get('./api/getKamarDetails'+id).then(response => (
+                    this.rooms = response.data.kamar,
+                    console.log(response.data),
+                    this.rooms.forEach((room) => {
+                        room.fasilitas = room.fasilitas.split(',')
+                    })
+                ))
+            },
+            toPrice(price) {
+                var new_price = price.toString()
+                new_price = new_price.split('')
+                new_price.splice(new_price.length-3*1,0,'.')
+                new_price.splice(new_price.length-1-3*2,0,'.')
+                console.log(new_price)
+                return new_price.join('')
+            }
+        },
+        mounted(){
+            this.getRooms()
+        }
+    }
 </script>
 
 <style scoped>
