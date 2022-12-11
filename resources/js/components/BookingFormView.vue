@@ -7,21 +7,21 @@
                     <div>
                         <label for="">
                             Nama Lengkap
-                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.username">
+                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.nama_penghuni">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Telepon
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.noTelp">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.no_telp">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Kerabat/Orang Tua
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.noOrtu">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.no_kerabat">
                         </label>
                         
                     </div>
@@ -29,14 +29,14 @@
                         <div>
                             <label for="">
                                 Tanggal Masuk
-                                <input type="date" name="" id="" v-model="form.tglMasuk">
+                                <input type="date" name="" id="" v-model="form.date_mulai">
                             </label>
                             
                         </div>
                         <div style="margin-left: 10%;">
                             <label for="">
                                 Durasi
-                                <select name="durations" id="durations" v-model="form.durasi" @change="updateHarga(form.durasi)">
+                                <select name="durations" id="durations" v-model="form.durasi_kost" @change="updateHarga(form.durasi)">
                                     <option value="1" >1 Bulan</option>
                                     <option value="12">1 Tahun</option>
                                 </select>
@@ -57,7 +57,7 @@
                     <div class="content">
                         <label for="">
                             Pilih Bank/Nomor Rekening
-                            <select name="" id="" v-model="form.metodeBayar">
+                            <select name="" id="" v-model="form.metode_pembayaran">
                                 <option value="BNI/08222222">BNI/08222222</option>
                             </select>
                             <div style="display: flex;">
@@ -99,14 +99,14 @@ export default{
             },
             harga:'',
             form: {
-                username: '',
-                noTelp: '',
-                noOrtu: '',
-                tglMasuk: '',
-                durasi: '1',
-                foto: '',
-                metodeBayar:'BNI/08222222',
-                kamarId:''
+                nama_penghuni: '',
+                no_telp: '',
+                no_kerabat: '',
+                date_mulai: '',
+                durasi_kost: '1',
+                foto_ktp: '',
+                metode_pembayaran:'BNI/08222222',
+                kamar_id:''
             }
         }
     },
@@ -148,15 +148,40 @@ export default{
             var vm = this;
 
             reader.onload = (e) => {
-                vm.form.foto = e.target.result;
+                vm.form.foto_ktp = e.target.result;
             };
             reader.readAsDataURL(file);
         },
         async sendForm(){
             try {
-                this.form.kamarId = this.idKamar
+                this.form.kamar_id = this.idKamar
                 console.log(this.form)
-                await axios.post('/api/create_order', this.form)
+
+                const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
+                if (Array.isArray(val)) {
+                    val.forEach(v => fd.append(key, v))
+                } else {
+                    fd.append(key, val)
+                }
+                return fd
+                }, new FormData());
+
+                // let test = getFormData(this.form)
+
+                // for (var key of test.entries()) {
+                //     console.log(key[0] + ', ' + key[1])
+                // }
+
+
+                await axios.post("/api/create_order", getFormData(this.form))
+                .then(response => {
+                    console.log("Successfully uploaded: ", response.data)
+                })
+                .catch(err => {
+                    console.error("error occurred: ", err)
+                })
+
+                // await axios.post('/api/create_order', this.form)
             } catch (error) {
                 console.log(error)
             }
