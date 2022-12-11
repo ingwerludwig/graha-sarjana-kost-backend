@@ -3,21 +3,21 @@
       <div style="text-align: left; font-size: 32px; font-weight: bold; padding: 20px 20px;">{{buttTxt}}</div>
       <div class="sub">
 
-        <form action="/api/create_user" method="POST" @submit="register()">
+        <form action="" method="POST" @submit="register()">
             <div v-if = "!isLogin">
                 <label for="">Full Name</label>
-                <input type="text" v-model="fullname" name="username" placeholder="Enter full name...">
+                <input type="text" v-model="fullname" name="username" placeholder="Enter full name..." required="true">
             </div>
             <div>
                 <label for="">Email</label>
-                <input type="text" name="email" v-model="email" placeholder="Enter email...">
+                <input type="text" name="email" v-model="email" placeholder="Enter email..." required="true">
             </div>
             <div>
                 <label for="">Password</label>
-                <input type="text" name="password" v-model="password" placeholder="Enter password...">
+                <input type="text" name="password" v-model="password" placeholder="Enter password..." required="true">
             </div>
             <div>
-                <button type="sumit" class="green">{{buttTxt}}</button>
+                <button type="submit" class="green">{{buttTxt}}</button>
             </div>
             <hr>
             <div>
@@ -39,13 +39,13 @@
             span: ' Sign Up',
             fullname:'',
             email: '',
-            password:'',
+            password:''
 
         }
     },
     methods: {
         register(){
-            axios.post('./api/create_user',{
+            axios.post('/api/create_user',{
                 username:this.fullname,
                 email:this.email,
                 password:this.password})

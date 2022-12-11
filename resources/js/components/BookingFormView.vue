@@ -7,21 +7,21 @@
                     <div>
                         <label for="">
                             Nama Lengkap
-                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.username">
+                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.nama_penghuni">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Telepon
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.noTelp">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.no_telp">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Kerabat/Orang Tua
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.noOrtu">
+                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.no_kerabat">
                         </label>
                         
                     </div>
@@ -29,14 +29,14 @@
                         <div>
                             <label for="">
                                 Tanggal Masuk
-                                <input type="date" name="" id="" v-model="form.tglMasuk">
+                                <input type="date" name="" id="" v-model="form.date_mulai">
                             </label>
                             
                         </div>
                         <div style="margin-left: 10%;">
                             <label for="">
                                 Durasi
-                                <select name="durations" id="durations" v-model="form.durasi" @change="updateHarga(form.durasi)">
+                                <select name="durations" id="durations" v-model="form.durasi_kost" @change="updateHarga(form.durasi_kost)">
                                     <option value="1" >1 Bulan</option>
                                     <option value="12">1 Tahun</option>
                                 </select>
@@ -57,7 +57,7 @@
                     <div class="content">
                         <label for="">
                             Pilih Bank/Nomor Rekening
-                            <select name="" id="" v-model="form.metodeBayar">
+                            <select name="" id="" v-model="form.metode_pembayaran">
                                 <option value="BNI/08222222">BNI/08222222</option>
                             </select>
                             <div style="display: flex;">
@@ -71,11 +71,11 @@
                     <div style="font-size: 32px; font-weight: bold; padding: 10px 0px;">DETAIL BOOKING</div>
                     <div style="display: flex;">
                         <div class="gambar">
-
+                            <img src="../../assets/kamar/kamar1.jpg" alt="" id="kamar-pic">
                         </div>
                         <div style="text-align: left; padding: 10px 20px;">
                             Kamar {{kamar.no_kamar}}
-                            <div style="font-size: 30px;">Rp {{harga}}</div>
+                            <div style="font-size: 30px;">Total: Rp {{harga}}</div>
                         </div>
                     </div>
                 </div>
@@ -99,14 +99,15 @@ export default{
             },
             harga:'',
             form: {
-                username: '',
-                noTelp: '',
-                noOrtu: '',
-                tglMasuk: '',
-                durasi: '1',
-                foto: '',
-                metodeBayar:'BNI/08222222',
-                kamarId:''
+                nama_penghuni: '',
+                no_telp: '',
+                no_kerabat: '',
+                date_mulai: '',
+                durasi_kost: '1',
+                total_harga: '',
+                foto_ktp: '',
+                metode_pembayaran:'BNI/08222222',
+                kamar_id:''
             }
         }
     },
@@ -148,13 +149,16 @@ export default{
             var vm = this;
 
             reader.onload = (e) => {
-                vm.form.foto = e.target.result;
+                vm.form.foto_ktp = e.target.result;
             };
             reader.readAsDataURL(file);
         },
         async sendForm(){
             try {
-                this.form.kamarId = this.idKamar
+                this.form.kamar_id = this.idKamar
+                this.form.date_mulai = new Date(this.form.date_mulai)
+                this.form.durasi_kost = parseInt(this.form.durasi_kost)
+                this.form.total_harga = parseInt(this.harga)
                 console.log(this.form)
                 await axios.post('/api/create_order', this.form)
             } catch (error) {
@@ -242,12 +246,16 @@ select{
 .gambar{
     width: 100px;
     height: 100px;
-    border: 1px solid black;
 }
 img{
     margin-left: 10px;
     width: 50px;
     height: auto;
+}
+#kamar-pic{
+    width: 100%;
+    height: 100%;
+    margin: 0px 0px;
 }
 
 </style>
