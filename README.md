@@ -77,7 +77,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
     ```sh
     composer install
     ```
-5. In your cloned proejct, setup your .env to your local configuration
+5. In your cloned project, setup your .env to your local configuration
 
 6. Generate JWT Secret on your app in terminal
     ```sh
