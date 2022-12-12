@@ -43,7 +43,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 ### Prerequisites
 
-**First thing first**, install <a href="https://www.php.net/manual/en/install.php">latest PHP (min PHP 8)</a> and follow those instruction based on your devices type
+**First thing first**, install latest<a href="https://www.php.net/manual/en/install.php"> PHP </a> (min PHP 8) and follow those instruction based on your devices type
 
 **Second**, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
 
@@ -56,7 +56,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 **Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type if you want to test out your API
 
-**Sixth**, install <a href="https://nodejs.org/en/download/">latest NodeJS (min NodeJS v16)</a> and follow those instruction based on your devices type
+**Sixth**, install latest <a href="https://nodejs.org/en/download/"> NodeJS </a> (min NodeJS v16) and follow those instruction based on your devices type
 
 
 ### Installation
