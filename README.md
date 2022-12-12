@@ -52,7 +52,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
     composer global require laravel/installer
     ```
     
-**Forth**, install <a href="https://www.postgresql.org/download">PostgreSQL</a> and follow those instruction based on your devices type
+**Forth**, install latest<a href="https://www.postgresql.org/download"> PostgreSQL </a> (min Postgre 14) and follow those instruction based on your devices type
 
 **Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type if you want to test out your API
 
