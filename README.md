@@ -43,7 +43,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
 
 ### Prerequisites
 
-**First thing first**, install <a href="https://www.php.net/manual/en/install.php">PHP</a> and follow those instruction based on your devices type
+**First thing first**, install latest<a href="https://www.php.net/manual/en/install.php"> PHP </a> (min PHP 8) and follow those instruction based on your devices type
 
 **Second**, install <a href="https://getcomposer.org/download">Composer</a> and follow those instruction
 
@@ -52,11 +52,11 @@ Built with Monolith Architecture combined with Repository Design Pattern
     composer global require laravel/installer
     ```
     
-**Forth**, install <a href="https://www.postgresql.org/download">PostgreSQL</a> and follow those instruction based on your devices type
+**Forth**, install latest<a href="https://www.postgresql.org/download"> PostgreSQL </a> (min Postgre 14) and follow those instruction based on your devices type
 
 **Fifth**, install <a href="https://www.postman.com/downloads/">Postman</a> or other API developers and follow those instruction based on your devices type if you want to test out your API
 
-**Sixth**, install <a href="https://nodejs.org/en/download/">NodeJS</a> and follow those instruction based on your devices type
+**Sixth**, install latest <a href="https://nodejs.org/en/download/"> NodeJS </a> (min NodeJS v16) and follow those instruction based on your devices type
 
 
 ### Installation
@@ -77,7 +77,7 @@ Built with Monolith Architecture combined with Repository Design Pattern
     ```sh
     composer install
     ```
-5. In your cloned proejct, setup your .env to your local configuration
+5. In your cloned project, setup your .env to your local configuration
 
 6. Generate JWT Secret on your app in terminal
     ```sh
