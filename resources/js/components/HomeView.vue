@@ -11,9 +11,13 @@
         <div><router-link to="/daftar_kos" style="text-decoration: none; color: inherit;">DAFTAR KOS</router-link></div>
         <div>ABOUT US</div>
       </div>
-      <div>
+      <div v-if="!isAuthenticated">
         <router-link :to="`/login_register/login`"><button class="white">LOGIN</button></router-link>
         <router-link :to="`/login_register/regitser`"><button class="green">SIGN UP</button></router-link>
+      </div>
+      <div v-if="isAuthenticated" style="display: flex; align-items: center;">
+        <div>HI {{user.name}} </div>
+        <button class="red">LOGOUT</button>
       </div>
     </nav>
     <div class="circle"></div>
@@ -47,17 +51,45 @@
           </div>
         </div>
       </div>
-      <div style="font-size: 11px; color: white; padding-bottom: 16px;">Copyright © 2022 Software Design Group 6 {{ id}}</div>
+      <div style="font-size: 11px; color: white; padding-bottom: 16px;">Copyright © 2022 Software Design Group 6</div>
     </nav>
   </template>
   
   <script>
+  import axios from 'axios'
   export default {
     data(){
       return{
-        id: localStorage.getItem('userId')
+        isAuthenticated: false,
+        user: {},
       }
     },
+    methods: {
+      getUser(){
+        axios.get('').then(function(response){
+          this.user = response.data.user
+          console.log(this.user)
+        }).catch(function(err){
+          console.log(err)
+        })
+      },
+      logOut(){
+        // post
+      },
+      loginCheck(){
+        try {
+          let user = JSON.parse(localStorage.getItem('user'))
+          this.isAuthenticated = true;
+          this.user = user
+          console.log(user)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    },
+    mounted(){
+      this.loginCheck()
+    }
   }
   </script>
   <style scoped>

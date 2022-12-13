@@ -77,7 +77,14 @@ import axios from 'axios'
                     })
                     if(res.data.success){
                         this.success = true
-                        localStorage.setItem('userId', res.data.user.id)
+                        let user = {
+                            'id': res.data.user.id,
+                            'token': res.data.authorization.token,
+                            'name': res.data.user.username
+                        }
+                        console.log('di login', user)
+                        localStorage.clear()
+                        localStorage.setItem('user', JSON.stringify(user))
                         console.log('login: ',res.data.user.id)
                         this.$router.push('/')
                     }

@@ -114,7 +114,9 @@ export default{
     methods:{
        async getRoom(){
             try {
-                const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
+                const token = JSON.parse(localStorage.getItem('user')).token
+                const config = {headers: {Authorization: 'Bearer '+ token}}
+                const res = await axios.get('/api/getKamarDetails/' + this.idKamar, config)
                 console.log(res.data)
                 this.kamar = res.data.kamar[0]
                 this.harga = this.toPrice(this.kamar.harga)
