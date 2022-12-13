@@ -12,7 +12,7 @@
             <div id="contact">
                 <div class="col1">
                     <div><font-awesome-icon icon="fa-solid fa-location-dot" size="2x"/><div>Jalan Bumi Marina Emas Selatan E79</div></div>
-                    <div><font-awesome-icon icon="fa-brands fa-whatsapp" size="2x"/><div>+6282235012819</div></div>
+                    <div><font-awesome-icon icon="fa-brands fa-whatsapp" size="2x"/><div><a href="https://api.whatsapp.com/send?phone=+6281282587212&text=Saya%20ingin%20memesan%20kamar%20di%20Graha%20Sarjana%20Kost">+6282235012819</a></div></div>
                     <div><font-awesome-icon icon="fa-brands fa-facebook" size="2x"/><div>GrahaSarjanaSurabaya</div></div>
                 </div>
             </div>

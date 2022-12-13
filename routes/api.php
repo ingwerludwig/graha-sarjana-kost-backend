@@ -29,11 +29,12 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/admin/create_kamar', [KamarController::class, 'addKamar']);
     
 
-    Route::post('/create_order', [OrderController::class, 'createOrder']);
+    
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
 });
 
 Route::withoutMiddleware('auth:api')->group(function() {
+    Route::post('/create_order', [OrderController::class, 'createOrder']);
     Route::get('/getKamarTersedia', [KamarController::class, 'getAvailableKamar']);
     Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
     Route::post('create_user', [AuthController::class, 'register']);

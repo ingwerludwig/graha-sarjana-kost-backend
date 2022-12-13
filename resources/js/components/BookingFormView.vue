@@ -98,6 +98,7 @@ export default{
                 no_kamar:'4'
             },
             harga:'',
+            total_harga:'',
             form: {
                 nama_penghuni: '',
                 no_telp: '',
@@ -117,6 +118,7 @@ export default{
                 console.log(res.data)
                 this.kamar = res.data.kamar[0]
                 this.harga = this.toPrice(this.kamar.harga)
+                this.total_harga = this.kamar.harga
             } catch (err) {
                 console.log('error')
             }
@@ -137,10 +139,7 @@ export default{
             return new_price.join('')
         },
         onFileChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.createImage(files[0]);
+            this.form.foto_ktp = e.target.files[0];
         },
         createImage(file) {
             var image = new Image();
@@ -157,27 +156,37 @@ export default{
                 this.form.kamar_id = this.idKamar
                 console.log(this.form)
 
-                const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
-                if (Array.isArray(val)) {
-                    val.forEach(v => fd.append(key, v))
-                } else {
-                    fd.append(key, val)
-                }
-                return fd
-                }, new FormData());
-
-                // let test = getFormData(this.form)
-
-                // for (var key of test.entries()) {
-                //     console.log(key[0] + ', ' + key[1])
+                // //Test console.log data
+                // const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
+                // if (Array.isArray(val)) {
+                //     val.forEach(v => fd.append(key, v))
+                // } else {
+                //     fd.append(key, val)
                 // }
+                // return fd
+                // }, new FormData());
 
+                let formData = new FormData()
+                formData.append('nama_penghuni',this.form.nama_penghuni)
+                formData.append('no_telp', this.form.no_telp)
+                formData.append('no_kerabat', this.form.no_kerabat)
+                formData.append('date_mulai', this.form.date_mulai)
+                formData.append('durasi_kost', this.form.durasi_kost)
+                formData.append('total_harga',this.total_harga)
+                formData.append('metode_pembayaran', this.form.metode_pembayaran)
+                formData.append('foto_ktp',this.form.foto_ktp)
+                formData.append('kamar_id',this.form.kamar_id)
+                formData.append('_method', 'POST')
 
-                await axios.post("/api/create_order", getFormData(this.form))
+                await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data'}})
                 .then(response => {
+                    this.$router.push('/');
                     console.log("Successfully uploaded: ", response.data)
                 })
                 .catch(err => {
+                    for (var key of formData.entries()) {
+                        console.log(key[0] + ', ' + key[1])
+                    }   
                     console.error("error occurred: ", err)
                 })
 
@@ -189,6 +198,7 @@ export default{
         updateHarga(val){
             console.log(val);
             this.harga =  this.kamar.harga * val
+            this.total_harga = this.harga
             this.harga = this.toPrice(this.harga)
         }
     },
