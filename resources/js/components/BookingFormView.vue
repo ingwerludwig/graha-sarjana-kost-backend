@@ -115,8 +115,10 @@ export default{
        async getRoom(){
             try {
                 const token = JSON.parse(localStorage.getItem('user')).token
-                const config = {headers: {Authorization: 'Bearer '+ token}}
-                const res = await axios.get('/api/getKamarDetails/' + this.idKamar, config)
+                console.log(token)
+                // const config = {headers: {Authorization: 'Bearer '+ token}}
+                axios.defaults.headers.common.Authorization = 'Bearer '+ token;
+                const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
                 console.log(res.data)
                 this.kamar = res.data.kamar[0]
                 this.harga = this.toPrice(this.kamar.harga)
@@ -172,7 +174,7 @@ export default{
                 formData.append('nama_penghuni',this.form.nama_penghuni)
                 formData.append('no_telp', this.form.no_telp)
                 formData.append('no_kerabat', this.form.no_kerabat)
-                formData.append('date_mulai', this.form.date_mulai)
+                formData.append('date_mulai', "2022/11/11")
                 formData.append('durasi_kost', this.form.durasi_kost)
                 formData.append('total_harga',this.total_harga)
                 formData.append('metode_pembayaran', this.form.metode_pembayaran)

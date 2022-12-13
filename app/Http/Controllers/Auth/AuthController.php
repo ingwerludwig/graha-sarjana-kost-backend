@@ -59,4 +59,5 @@ class AuthController extends Controller
             return $this->response->invalidTokenResponse();
         }
     }
+    
 }
