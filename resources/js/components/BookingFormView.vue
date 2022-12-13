@@ -115,6 +115,7 @@ export default{
        async getRoom(){
             try {
                 const token = JSON.parse(localStorage.getItem('user')).token
+                console.log(token)
                 axios.defaults.headers.common.Authorization = 'Bearer '+ token;
                 const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
                 console.log(res.data)
@@ -164,8 +165,10 @@ export default{
                 formData.append('no_kerabat', this.form.no_kerabat)
                 
                 // change date format
-                this.form.date_mulai = this.form.date_mulai.split('-').join('/')
-                formData.append('date_mulai', this.form.date_mulai.toString())
+                this.form.date_mulai = this.form.date_mulai.split('-')
+                const date = this.form.date_mulai[1] + '/' + this.form.date_mulai[2] + '/' + this.form.date_mulai[0]
+                console.log(date)
+                formData.append('date_mulai', date)
 
                 formData.append('durasi_kost', this.form.durasi_kost)
                 formData.append('total_harga',this.total_harga)
@@ -177,7 +180,7 @@ export default{
                 await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data'}})
                 .then(response => {
                     const orderId = response.data.order.id
-                    this.$router.push('/payment'+orderId);
+                    this.$router.push('/payment/'+orderId);
                     console.log("Successfully uploaded: ", response.data)
                 })
                 .catch(err => {
