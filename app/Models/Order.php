@@ -44,7 +44,7 @@ class Order extends Model
         $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
-        $req['user_id'] = '3679b180-7914-11ed-b706-932ee54da0d0';
+        $req['user_id'] = Auth::user()->id;
         $req['nama_document_ktp'] = $req['foto_ktp']->getClientOriginalName();
 
         return $req;

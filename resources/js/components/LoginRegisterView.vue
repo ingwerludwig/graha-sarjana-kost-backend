@@ -54,7 +54,7 @@ import axios from 'axios'
                     const res = await axios.post('/api/create_user',{
                     username:this.fullname,
                     email:this.email,
-                    password:this.password})
+                    password:this.password},{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
                     if(res.data.success){
                         console.log('success')
                         this.success = res.data.success
@@ -85,6 +85,7 @@ import axios from 'axios'
                         console.log('di login', user)
                         localStorage.clear()
                         localStorage.setItem('user', JSON.stringify(user))
+                        localStorage.setItem('token', res.data.authorization.token)
                         console.log('login: ',res.data.user.id)
                         this.$router.push('/')
                     }

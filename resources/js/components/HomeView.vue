@@ -2,7 +2,7 @@
     <nav class="navbar">
       <div class="logo">
         <div style="margin: auto; padding-left: 10px; padding-top: 15px;">
-          <div style="font-family: OpenSans; margin: auto; font-size: 24px; color: black;">GRAHA SARJANA</div>
+          <div style="font-family: Poppins; margin: auto; font-size: 24px; color: black;">GRAHA SARJANA</div>
           <hr>
         </div>
         
@@ -17,7 +17,7 @@
       </div>
       <div v-if="isAuthenticated" style="display: flex; align-items: center;">
         <div>HI {{user.name}} </div>
-        <button class="red">LOGOUT</button>
+        <button class="red" @click="logOut()" >LOGOUT</button>
       </div>
     </nav>
     <div class="circle"></div>
@@ -25,7 +25,7 @@
     <div class="home">
       <div> </div>
       <div style="font-size: 64px; font-weight: bold; text-align: left;">SELAMAT DATANG <br>DI GRAHA SARJANA 1</div>
-      <div style="text-align: left; width: 500px; font-size: 21px; font-weight: 500; font-family: OpenSans;">Kos murah meriah dengan fasilitas mewah.<br>Ayo tunggu apalagi? Booking sekarang!</div>
+      <div style="text-align: left; width: 500px; font-size: 21px; font-weight: 500; font-family: Poppins;">Kos murah meriah dengan fasilitas mewah.<br>Ayo tunggu apalagi? Booking sekarang!</div>
       <div style="display: flex; margin-top: 15px;">
         <router-link to="/daftar_kos" style="text-decoration: none;"><button class="white">Booking Kos</button></router-link>
       </div>    
@@ -66,7 +66,7 @@
     },
     methods: {
       getUser(){
-        axios.get('').then(function(response){
+        axios.get('',{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}}).then(function(response){
           this.user = response.data.user
           console.log(this.user)
         }).catch(function(err){
@@ -74,7 +74,8 @@
         })
       },
       logOut(){
-        // post
+        this.$router.go(0);
+        window.localStorage.clear();
       },
       loginCheck(){
         try {
@@ -82,6 +83,7 @@
           this.isAuthenticated = true;
           this.user = user
           console.log(user)
+  
         } catch (error) {
           console.log(error)
         }

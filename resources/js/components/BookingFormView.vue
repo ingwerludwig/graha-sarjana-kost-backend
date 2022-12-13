@@ -114,10 +114,8 @@ export default{
     methods:{
        async getRoom(){
             try {
-                const token = JSON.parse(localStorage.getItem('user')).token
-                console.log(token)
-                axios.defaults.headers.common.Authorization = 'Bearer '+ token;
-                const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
+                const res = await axios.get('/api/getKamarDetails/' + this.idKamar,{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+
                 console.log(res.data)
                 this.kamar = res.data.kamar[0]
                 this.harga = this.toPrice(this.kamar.harga)
@@ -177,7 +175,7 @@ export default{
                 formData.append('kamar_id',this.form.kamar_id)
                 formData.append('_method', 'POST')
 
-                await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data'}})
+                await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
                 .then(response => {
                     const orderId = response.data.order.id
                     this.$router.push('/payment/'+orderId);

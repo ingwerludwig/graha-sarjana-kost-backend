@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function() {
-    Route::post('logout', [AuthController::class, 'logout']);
+
     Route::post('/admin/create_kost', [KosController::class, 'addKos']);
     Route::get('/getKost', [KosController::class, 'getKost']);
 
@@ -34,12 +34,14 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/create_order', [OrderController::class, 'createOrder']);
     
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
+    Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
 });
 
 Route::withoutMiddleware('auth:api')->group(function() {
     
     Route::get('/getKamarTersedia', [KamarController::class, 'getAvailableKamar']);
-    Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
+    
     Route::post('create_user', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });

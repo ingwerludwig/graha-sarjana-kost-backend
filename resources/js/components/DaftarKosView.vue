@@ -61,7 +61,7 @@ import axios from 'axios'
         },
         methods:{
             getRooms (){
-                axios.get('/api/getKamarTersedia').then(response => (
+                axios.get('/api/getKamarTersedia',{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}}).then(response => (
                     this.rooms = response.data.kamar,
                     console.log(response.data),
                     this.rooms.forEach((room) => {
