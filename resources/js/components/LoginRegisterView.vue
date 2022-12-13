@@ -3,7 +3,7 @@
       <div style="text-align: left; font-size: 32px; font-weight: bold; padding: 20px 20px;">{{buttTxt}}</div>
       <div class="sub">
 
-        <form action="/api/create_user" method="POST" @submit="register()">
+        
             <div v-if = "!isLogin">
                 <label for="">Full Name</label>
                 <input type="text" v-model="fullname" name="username" placeholder="Enter full name...">
@@ -14,21 +14,23 @@
             </div>
             <div>
                 <label for="">Password</label>
-                <input type="text" name="password" v-model="password" placeholder="Enter password...">
+                <input type="password" name="password" v-model="password" placeholder="Enter password...">
             </div>
+            <div v-if="!success" style="color: red; font-size: 14px;">*{{errorMsg}}</div>
             <div>
-                <button type="sumit" class="green">{{buttTxt}}</button>
+                <button type="submit" class="green" @click="register()">{{buttTxt}}</button>
             </div>
             <hr>
             <div>
                 {{message}}<span style="cursor: pointer; color:#008631; font-weight: bold;" @click="registerOn()" > {{span}}</span>
             </div>
-        </form>
+        
       </div>
     </div>
   </template>
   
 <script>
+import axios from 'axios'
   export default {
     data (){
         return{
@@ -40,15 +42,52 @@
             fullname:'',
             email: '',
             password:'',
+            success: true,
+            errorMsg: ''
 
         }
     },
     methods: {
-        register(){
-            axios.post('./api/create_user',{
-                username:this.fullname,
-                email:this.email,
-                password:this.password})
+        async register(){
+            if(this.buttTxt == 'REGISTER'){
+                try {
+                    const res = await axios.post('/api/create_user',{
+                    username:this.fullname,
+                    email:this.email,
+                    password:this.password})
+                    if(res.data.success){
+                        console.log('success')
+                        this.success = res.data.success
+                        this.isLogin = false
+                        this.registerOn()
+                        this.email = ''
+                        this.password = ''
+                    }
+                } catch (error) {
+                    console.log(error.response.data)
+                    this.errorMsg = error.response.data.errors[0]
+                    this.success = error.response.data.success
+                }
+            }
+            else{
+                try {
+                    const res = await axios.post('/api/login', {
+                        email: this.email,
+                        password: this.password
+                    })
+                    if(res.data.success){
+                        this.success = true
+                        localStorage.setItem('userId', res.data.user.id)
+                        console.log('login: ',res.data.user.id)
+                        this.$router.push('/')
+                    }
+                } catch (error) {
+                    console.log(error)
+                    this.errorMsg = error.response.data.errors[0]
+                    this.success = false
+                }
+            }
+            
         },
 
         registerOn(){
@@ -69,6 +108,7 @@
     mounted(){
         if(this.type == 'login') this.isLogin = false
         else this.isLogin = true
+        console.log('type', this.type)
         this.registerOn()
     }
   }
