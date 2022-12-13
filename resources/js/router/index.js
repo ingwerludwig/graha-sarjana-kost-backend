@@ -5,8 +5,14 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
+  // {
+  //   path: '/:userId',
+  //   name: 'home_user',
+  //   component: HomeView,
+  //   props: true
+  // },
   {
     path: '/about',
     name: 'about',
