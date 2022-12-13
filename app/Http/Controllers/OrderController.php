@@ -10,53 +10,45 @@ use App\Util\StorageUtil;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Services\UploadService;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\UserRepositoryInterface;
+use App\Repository\OrderRepositoryInterface;
 
 class OrderController extends Controller
 {
-    private $s3Util;
+    private OrderRepositoryInterface $orderRepository;
+    private UploadService $uploadService;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct($storageUtil = new StorageUtil())
-    {
-        $this->s3Util = $storageUtil;
+    public function __construct(OrderRepositoryInterface $orderRepository,UserRepositoryInterface $userRepository,UploadService $uploadService){
+        $this->orderRepository = $orderRepository;
+        $this->userRepository = $userRepository;
+        $this->uploadService = $uploadService;
     }
 
     public function createOrder(OrderRequest $request){
         $req = Order::addAdditionalData($request->validated());
 
-        $requestedKamar = KamarKost::where('id',$req['kamar_id'])->get();
+        $res = $this->uploadService->upload($req);
 
-        $req['date_mulai'] = Carbon::parse($req['date_mulai'])->format('m/d/Y');
-        $req['date_selesai'] = Carbon::parse($req['date_mulai'])->addMonths(5)->format('m/d/Y');
-        $req['no_kamar'] = $requestedKamar[0]->no_kamar;
-
-        $isExistsOrderKTP = Order::where('nama_document_ktp', $req['nama_document_ktp'])->count();
-
-        if($isExistsOrderKTP > 0)
-        {
+        if($res === "exist"){
             return response()->json([
                 'success' => false,
                 'errors' => ['Please upload with different name'],
             ], 400);
         }
 
-        $savedName = $req['id'] . "_" . $req['nama_document_ktp'] . "_" . $req['no_kamar']; //without .pdf extension
-
-        $res = $this->s3Util->upload(file_get_contents($req['foto_ktp']), $savedName);
-        if($res === "")
-        {
+        if($res === ""){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t upload this document to the server. Try again later'],
             ], 500);
         }
 
-        $req['foto_ktp'] = "https://ipfs.filebase.io/ipfs/" . $res;
+        $created = $this->orderRepository->saveOrder($res);
 
-        $created = Order::create($req);
-
-        if (!$created || $created == null)
-        {
+        if (!$created || $created == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t create your order right now.'],
@@ -69,10 +61,9 @@ class OrderController extends Controller
         ], 201);
     }
 
-    public function getUserOrder(){{
-        $user = Auth::user();
-
-        $userOrder = Order::where('user_id',$user->id)->get();
+    public function getUserOrder(){
+        $user = $this->$userRepository->getAuthUser();
+        $userOrder = $this->$orderRepository->findByUserId($user->id);
 
         if($userOrder->isEmpty()){
             return response()->json([
@@ -81,8 +72,7 @@ class OrderController extends Controller
             ], 200);
         }
 
-        if (!$userOrder || $userOrder == null)
-        {
+        if (!$userOrder || $userOrder == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t create your order right now.'],
@@ -93,5 +83,5 @@ class OrderController extends Controller
             'success' => true,
             'order' => $userOrder
         ], 201);
-    }}
+    }
 }

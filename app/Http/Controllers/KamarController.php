@@ -7,16 +7,21 @@ use App\Models\KamarKost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddKamarRequest;
+use App\Repository\KamarRepositoryInterface;
 
 class KamarController extends Controller
 {
+    private KamarRepositoryInterface $kamarRepository;
+
+    public function __construct(KamarRepositoryInterface $kamarRepository){
+        $this->kamarRepository = $kamarRepository;
+    }
+
     public function addKamar(AddKamarRequest $request)
     {
         $req = Kost::addAdditionalData($request->validated());
-
-        $existKamar = KamarKost::where('kost_id',$req['kost_id'])
-        ->where('no_kamar',$req['no_kamar'])
-        ->count();
+   
+        $existKamar = $this->kamarRepository->getKamarByNoAndKostId($req['no_kamar'],$req['kost_id']);
         
         if($existKamar > 0){
             return response()->json([
@@ -25,10 +30,9 @@ class KamarController extends Controller
             ], 400);
         }
 
-        $created = KamarKost::create($req);
+        $created = $this->kamarRepository->saveKamar($req);
 
-        if (!$created || $created == null)
-        {
+        if (!$created || $created == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t create your kamar right now.'],
@@ -43,9 +47,7 @@ class KamarController extends Controller
 
     public function getAvailableKamar()
     {
-
-        $kamar = KamarKost::where('is_available',true)
-        ->get();
+        $kamar = $this->kamarRepository->getKamarByStatusAvailable();
 
         if ($kamar->isEmpty()){
             return response()->json([
@@ -54,8 +56,7 @@ class KamarController extends Controller
             ], 200);
         }
 
-        if (!$kamar[0] || $kamar[0] == null)
-        {
+        if (!$kamar[0] || $kamar[0] == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t get kamar data right now.'],
@@ -69,10 +70,9 @@ class KamarController extends Controller
     }
 
     public function getKamarDetails($kamar_id){
-        $existKamar = KamarKost::where('id',$kamar_id)->get();
+        $existKamar = $this->kamarRepository->getKamarById($kamar_id);
 
-        if (!$existKamar || $existKamar == null)
-        {
+        if (!$existKamar || $existKamar == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t get kamar data right now.'],

@@ -6,16 +6,22 @@ use App\Models\Kost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddKostRequest;
+use App\Repository\KostRepositoryInterface;
 
 class KosController extends Controller
 {
-    public function addKos(AddKostRequest $request){
+    private KostRepositoryInterface $kostRepository;
 
+    public function __construct(KostRepositoryInterface $kostRepository){
+        $this->kostRepository = $kostRepository;
+    }
+
+    public function addKos(AddKostRequest $request){
         $req = Kost::addAdditionalData($request->validated());
-        $created = Kost::create($req);
+
+        $created = $this->kostRepository->saveKost($req);
        
-        if (!$created || $created == null)
-        {
+        if (!$created || $created == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t create your Kos right now.'],
@@ -30,10 +36,9 @@ class KosController extends Controller
 
     public function getKost()
     {
-        $existKos = Kost::first();
+        $existKos = $this->kostRepository->getKostByFirstAsc();
 
-        if (!$existKos || $existKos == null)
-        {
+        if (!$existKos || $existKos == null){
             return response()->json([
                 'success' => false,
                 'errors' => ['Can\'t get kos data right now.'],
