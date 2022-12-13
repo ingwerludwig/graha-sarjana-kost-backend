@@ -36,7 +36,7 @@
                         <div style="margin-left: 10%;">
                             <label for="">
                                 Durasi
-                                <select name="durations" id="durations" v-model="form.durasi_kost" @change="updateHarga(form.durasi)">
+                                <select name="durations" id="durations" v-model="form.durasi_kost" @change="updateHarga(form.durasi_kost)">
                                     <option value="1" >1 Bulan</option>
                                     <option value="12">1 Tahun</option>
                                 </select>
@@ -115,8 +115,6 @@ export default{
        async getRoom(){
             try {
                 const token = JSON.parse(localStorage.getItem('user')).token
-                console.log(token)
-                // const config = {headers: {Authorization: 'Bearer '+ token}}
                 axios.defaults.headers.common.Authorization = 'Bearer '+ token;
                 const res = await axios.get('/api/getKamarDetails/' + this.idKamar)
                 console.log(res.data)
@@ -165,6 +163,8 @@ export default{
                 formData.append('no_telp', this.form.no_telp)
                 formData.append('no_kerabat', this.form.no_kerabat)
                 
+                // change date format
+                this.form.date_mulai = this.form.date_mulai.split('-').join('/')
                 formData.append('date_mulai', this.form.date_mulai.toString())
 
                 formData.append('durasi_kost', this.form.durasi_kost)
