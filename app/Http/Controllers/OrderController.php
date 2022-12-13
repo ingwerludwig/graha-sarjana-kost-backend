@@ -26,8 +26,8 @@ class OrderController extends Controller
 
         $requestedKamar = KamarKost::where('id',$req['kamar_id'])->get();
 
-        $req['date_mulai'] = Carbon::parse($req['date_mulai'])->format('d-m-Y');
-        $req['date_selesai'] = Carbon::parse($req['date_mulai'])->addMonths(5)->format('d-m-Y');
+        $req['date_mulai'] = Carbon::parse($req['date_mulai'])->format('m/d/Y');
+        $req['date_selesai'] = Carbon::parse($req['date_mulai'])->addMonths(5)->format('m/d/Y');
         $req['no_kamar'] = $requestedKamar[0]->no_kamar;
 
         $isExistsOrderKTP = Order::where('nama_document_ktp', $req['nama_document_ktp'])->count();
