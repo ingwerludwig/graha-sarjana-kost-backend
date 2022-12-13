@@ -158,21 +158,11 @@ export default{
                 this.form.kamar_id = this.idKamar
                 console.log(this.form)
 
-                // //Test console.log data
-                // const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
-                // if (Array.isArray(val)) {
-                //     val.forEach(v => fd.append(key, v))
-                // } else {
-                //     fd.append(key, val)
-                // }
-                // return fd
-                // }, new FormData());
-
                 let formData = new FormData()
                 formData.append('nama_penghuni',this.form.nama_penghuni)
                 formData.append('no_telp', this.form.no_telp)
                 formData.append('no_kerabat', this.form.no_kerabat)
-                formData.append('date_mulai', this.form.date_mulai)
+                formData.append('date_mulai', this.form.date_mulai.toString())
                 formData.append('durasi_kost', this.form.durasi_kost)
                 formData.append('total_harga',this.total_harga)
                 formData.append('metode_pembayaran', this.form.metode_pembayaran)
@@ -182,7 +172,8 @@ export default{
 
                 await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data'}})
                 .then(response => {
-                    this.$router.push('/');
+                    const orderId = response.data.order.id
+                    this.$router.push('/payment'+orderId);
                     console.log("Successfully uploaded: ", response.data)
                 })
                 .catch(err => {
@@ -192,7 +183,7 @@ export default{
                     console.error("error occurred: ", err)
                 })
 
-                // await axios.post('/api/create_order', this.form)
+                
             } catch (error) {
                 console.log(error)
             }
