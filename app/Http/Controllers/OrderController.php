@@ -63,7 +63,7 @@ class OrderController extends Controller
 
     public function getUserOrder(){
         $user = $this->userRepository->getAuthUser();
-        $userOrder = $this->orderRepository->getOrderByUserId($user->id);
+        $userOrder = $this->orderRepository->getOrderByUserId($user[0]->id);
 
         if($userOrder->isEmpty()){
             return response()->json([
