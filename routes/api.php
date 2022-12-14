@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function() {
     
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
     Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
+    Route::get('/getOrderDetails/{order_id}', [OrderController::class, 'getOrderDetails']);
 });
 
 Route::withoutMiddleware('auth:api')->group(function() {

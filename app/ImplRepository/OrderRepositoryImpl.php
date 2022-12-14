@@ -26,7 +26,14 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
 
         if($userOrder->isEmpty())   return (object)[];
         if (!$userOrder || $userOrder == null)  return null;
-
         return $userOrder;
+    }
+
+    public function getOrderById($order_id){
+        $existOrder = Order::where('id',$order_id)->get();
+
+        if($existOrder->isEmpty())   return (object)[];
+        if (!$existOrder || $existOrder == null)  return null;
+        return $existOrder;
     }
 }

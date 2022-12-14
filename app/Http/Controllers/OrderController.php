@@ -62,8 +62,8 @@ class OrderController extends Controller
     }
 
     public function getUserOrder(){
-        $user = $this->$userRepository->getAuthUser();
-        $userOrder = $this->$orderRepository->findByUserId($user->id);
+        $user = $this->userRepository->getAuthUser();
+        $userOrder = $this->orderRepository->getOrderByUserId($user->id);
 
         if($userOrder->isEmpty()){
             return response()->json([
@@ -82,6 +82,29 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'order' => $userOrder
+        ], 201);
+    }
+
+    public function getOrderDetails($order_id){
+        $existOrder = $this->orderRepository->getOrderById($order_id);
+
+        if($existOrder->isEmpty()){
+            return response()->json([
+                'success' => false,
+                'errors' => ['No order right now for user'],
+            ], 200);
+        }
+
+        if (!$existOrder || $existOrder == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t create your order right now.'],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'order' => $existOrder
         ], 201);
     }
 }
