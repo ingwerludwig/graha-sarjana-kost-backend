@@ -7,21 +7,21 @@
                     <div>
                         <label for="">
                             Nama Lengkap
-                            <input type="text" name="" id="" placeholder="Masukkan Nama Lengkap..." v-model="form.nama_penghuni">
+                            <input type="text" required="true" placeholder="Masukkan Nama Lengkap..." v-model="form.nama_penghuni">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Telepon
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Telepon..." v-model="form.no_telp">
+                            <input type="text" required="true" placeholder="Masukkan Nomor Telepon..." v-model="form.no_telp">
                         </label>
                         
                     </div>
                     <div>
                         <label for="">
                             Nomor Kerabat/Orang Tua
-                            <input type="text" name="" id="" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.no_kerabat">
+                            <input type="text" required="true" placeholder="Masukkan Nomor Kerabat/Orang Tua..." v-model="form.no_kerabat">
                         </label>
                         
                     </div>
@@ -29,7 +29,7 @@
                         <div>
                             <label for="">
                                 Tanggal Masuk
-                                <input type="date" name="" id="" v-model="form.date_mulai">
+                                <input type="date" required="true" v-model="form.date_mulai">
                             </label>
                             
                         </div>
@@ -46,9 +46,10 @@
                     <div style="border: none;">
                         <label for="">
                             Unggah Foto KTP
-                            <input type="file" name="" id="" style="border: none;" @change="onFileChange">
+                            <input type="file" required="true" style="border: none;" @change="onFileChange">
                         </label>
                     </div>
+                    <div v-if="!isFilledOut" style="font-weight: 10px; color: red;">Make sure to fill out all required data</div>
                 </div>
             </div>
             <div class="kanan">
@@ -108,7 +109,8 @@ export default{
                 foto_ktp: '',
                 metode_pembayaran:'BNI/08222222',
                 kamar_id:''
-            }
+            },
+            isFilledOut: true,
         }
     },
     methods:{
@@ -125,16 +127,12 @@ export default{
             }
        },
         toPrice(price) {
-            console.log(price);
             var new_price = price.toString()
             new_price = new_price.split('')
             var n_dots = Math.floor(new_price.length / 3)
-            console.log(n_dots);
             var it = 1
-            // 1000.000
             for(it; it<n_dots+1; it++){
                 var pos = new_price.length+1-it-3*it
-                console.log(it, pos);
                 new_price.splice(pos,0,'.')
             }
             return new_price.join('')
@@ -154,50 +152,58 @@ export default{
         },
         async sendForm(){
             try {
-                this.form.kamar_id = this.idKamar
-                console.log(this.form)
+                if(this.formValidation()){
+                    this.form.kamar_id = this.idKamar
 
-                let formData = new FormData()
-                formData.append('nama_penghuni',this.form.nama_penghuni)
-                formData.append('no_telp', this.form.no_telp)
-                formData.append('no_kerabat', this.form.no_kerabat)
-                
-                // change date format
-                this.form.date_mulai = this.form.date_mulai.split('-')
-                const date = this.form.date_mulai[1] + '/' + this.form.date_mulai[2] + '/' + this.form.date_mulai[0]
-                console.log(date)
-                formData.append('date_mulai', date)
+                    let formData = new FormData()
+                    formData.append('nama_penghuni',this.form.nama_penghuni)
+                    formData.append('no_telp', this.form.no_telp)
+                    formData.append('no_kerabat', this.form.no_kerabat)
+                    
+                    // change date format
+                    this.form.date_mulai = this.form.date_mulai.split('-')
+                    const date = this.form.date_mulai[1] + '/' + this.form.date_mulai[2] + '/' + this.form.date_mulai[0]
+                    formData.append('date_mulai', date)
 
-                formData.append('durasi_kost', this.form.durasi_kost)
-                formData.append('total_harga',this.total_harga)
-                formData.append('metode_pembayaran', this.form.metode_pembayaran)
-                formData.append('foto_ktp',this.form.foto_ktp)
-                formData.append('kamar_id',this.form.kamar_id)
-                formData.append('_method', 'POST')
+                    formData.append('durasi_kost', this.form.durasi_kost)
+                    formData.append('total_harga',this.total_harga)
+                    formData.append('metode_pembayaran', this.form.metode_pembayaran)
+                    formData.append('foto_ktp',this.form.foto_ktp)
+                    formData.append('kamar_id',this.form.kamar_id)
+                    formData.append('_method', 'POST')
 
-                await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
-                .then(response => {
-                    const orderId = response.data.order.id
-                    this.$router.push('/payment/'+orderId);
-                    console.log("Successfully uploaded: ", response.data)
-                })
-                .catch(err => {
-                    for (var key of formData.entries()) {
-                        console.log(key[0] + ', ' + key[1])
-                    }   
-                    console.error("error occurred: ", err)
-                })
-
-                
+                    await axios.post("/api/create_order", formData,{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                    .then(response => {
+                        const orderId = response.data.order.id
+                        this.$router.push('/payment/'+orderId)
+                    })
+                    .catch(err => {
+                        for (var key of formData.entries()) {
+                            console.log(key[0] + ', ' + key[1])
+                        }   
+                        console.error("error occurred: ", err)
+                    })
+                }
+        
             } catch (error) {
                 console.log(error)
             }
         },
         updateHarga(val){
-            console.log(val);
             this.harga =  this.kamar.harga * val
             this.total_harga = this.harga
             this.harga = this.toPrice(this.harga)
+        },
+        formValidation(){
+            var keys = Object.keys(this.form)
+            for(var i=0; i<keys.length - 2; i++){
+                if(this.form[keys[i]].length == 0){
+                    this.isFilledOut = false
+                    return false
+                }
+            }
+            this.isFilledOut = true
+            return true
         }
     },
     mounted(){

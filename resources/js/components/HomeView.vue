@@ -9,7 +9,8 @@
       </div>
       <div style="display: flex;" class="fitur">
         <div><router-link to="/daftar_kos" style="text-decoration: none; color: inherit;">DAFTAR KOS</router-link></div>
-        <div>ABOUT US</div>
+        <div><router-link to="/about" style="text-decoration: none; color: inherit;">ABOUT US</router-link></div>
+        <div v-if="isAuthenticated" ><router-link to="/history" style="text-decoration: none; color: inherit;">MY ORDER</router-link></div>
       </div>
       <div v-if="!isAuthenticated">
         <router-link :to="`/login_register/login`"><button class="white">LOGIN</button></router-link>
@@ -74,13 +75,13 @@
         })
       },
       logOut(){
-        this.$router.go(0);
-        window.localStorage.clear();
+        this.$router.go(0)
+        window.localStorage.clear()
       },
       loginCheck(){
         try {
           let user = JSON.parse(localStorage.getItem('user'))
-          this.isAuthenticated = true;
+          this.isAuthenticated = true
           this.user = user
           console.log(user)
   

@@ -32,6 +32,11 @@ const routes = [
     name: 'booking_form',
     component: () => import('../components/BookingFormView.vue')
   },
+  {
+    path: '/history',
+    name: 'history',
+    component: () => import('../components/OrderHistoryView.vue')
+  },
 ]
 
 const router = createRouter({
