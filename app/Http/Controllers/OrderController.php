@@ -91,8 +91,8 @@ class OrderController extends Controller
         if($existOrder->isEmpty()){
             return response()->json([
                 'success' => false,
-                'errors' => ['No order right now for user'],
-            ], 200);
+                'errors' => ['Requested Order not found'],
+            ], 400);
         }
 
         if (!$existOrder || $existOrder == null){

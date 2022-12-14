@@ -12,14 +12,16 @@ class KostRepositoryImpl implements KostRepositoryInterface
     public function getKostByFirstAsc(){
         $existKos = Kost::first();
 
-        if (!$existKos || $existKos == null)    {return null;}
+        if (!$existKos || $existKos == null)
+            return null;
         return $existKos;
     }
 
     public function saveKost($req){
         $created = Kost::create($req);
        
-        if (!$created || $created == null)  {return null;}
+        if (!$created || $created == null)
+            return null;
         return $created;
     }
 }

@@ -17,23 +17,28 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
     public function saveOrder($req){
         $created = Order::create($req);
 
-        if (!$created || $created == null)  {return null;}
+        if (!$created || $created == null)  
+            return null;
         return $created;
     }
 
     public function getOrderByUserId($user_id){
         $userOrder = Order::where('user_id',$user_id)->get();
 
-        if($userOrder->isEmpty())   return (object)[];
-        if (!$userOrder || $userOrder == null)  return null;
+        if($userOrder->isEmpty())   
+            return collect([]);
+        if (!$userOrder || $userOrder == null)  
+            return null;
         return $userOrder;
     }
 
     public function getOrderById($order_id){
         $existOrder = Order::where('id',$order_id)->get();
 
-        if($existOrder->isEmpty())   return (object)[];
-        if (!$existOrder || $existOrder == null)  return null;
+        if($existOrder->isEmpty())   
+            return collect([]);
+        if (!$existOrder || $existOrder == null) 
+            return null;
         return $existOrder;
     }
 }

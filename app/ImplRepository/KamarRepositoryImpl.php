@@ -9,32 +9,33 @@ use App\Repository\KamarRepositoryInterface;
 class KamarRepositoryImpl implements KamarRepositoryInterface
 {
     public function getKamarByNoAndKostId($no_kamar,$kost_id){
-        $existKamar = KamarKost::where('kost_id',$kost_id)
-        ->where('no_kamar',$no_kamar)
-        ->count();
+        $existKamar = KamarKost::where('kost_id',$kost_id)->where('no_kamar',$no_kamar)->count();
         return $existKamar;
     }
 
     public function saveKamar($req){
         $created = KamarKost::create($req);
 
-        if (!$created || $created == null)  {return null;}
+        if (!$created || $created == null)  
+            return null;
         return $created;
     }
 
     public function getKamarByStatusAvailable(){
-        $kamar = KamarKost::where('is_available',true)
-        ->get();
+        $kamar = KamarKost::where('is_available',true)->get();
 
-        if ($kamar->isEmpty())  {return (object)[];}
-        if (!$kamar[0] || $kamar[0] == null)    {return null;}
+        if ($kamar->isEmpty())  
+            return collect([]);
+        if (!$kamar[0] || $kamar[0] == null)
+            return null;
         return $kamar;
     }
     
     public function getKamarById($kamar_id){
         $existKamar = KamarKost::where('id',$kamar_id)->get();
 
-        if (!$existKamar || $existKamar == null)    {return null;}
+        if (!$existKamar || $existKamar == null)    
+            return null;
         return $existKamar;
     }
 }
