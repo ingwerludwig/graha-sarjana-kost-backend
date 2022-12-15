@@ -2,6 +2,7 @@
 
 namespace App\ImplRepository;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,22 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
             return collect([]);
         if (!$userOrder || $userOrder == null) 
             return null;
+        return $userOrder;
+    }
+
+    public function updateBukti($req){
+        $userOrder = Order::where('id',$req['order_id'])
+        ->update([
+            'status' => 'AWAITING_VERIFICATION',
+            'tanggal_pembayaran' => Carbon::now(),
+            'deskripsi_status' => null,
+            'nama_document_pembayaran' => $req['nama_document_pembayaran'],
+            'bukti_pembayaran' => $req['bukti_pembayaran'],
+        ]);
+
+        if (!$userOrder || $userOrder == null) 
+            return null;
+        $userOrder = Order::where('id',$req['order_id'])->get();
         return $userOrder;
     }
 }

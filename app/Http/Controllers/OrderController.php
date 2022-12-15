@@ -12,6 +12,7 @@ use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Services\UploadService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ConfirmOrderRequest;
 use App\Repository\UserRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
 
@@ -128,6 +129,56 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'order' => $existOrder
+        ], 201);
+    }
+
+    public function confirmOrder(ConfirmOrderRequest $request, $order_id){
+        $req = $request->validated();
+        $req['nama_document_pembayaran'] = $request['bukti_pembayaran']->getClientOriginalName();
+        $existOrder = $this->orderRepository->getOrderById($order_id);
+
+        if($existOrder->isEmpty()){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Requested Order not found'],
+            ], 400);
+        }
+
+        if (!$existOrder || $existOrder == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t create your order right now.'],
+            ], 500);
+        }
+
+        $req['order_id'] = $order_id;
+        $res = $this->uploadService->upload($req);
+
+        if($res === "exist"){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Please upload with different name'],
+            ], 400);
+        }
+
+        if($res === ""){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t upload this document to the server. Try again later'],
+            ], 500);
+        }
+
+        $updated = $this->orderRepository->updateBukti($res);
+        if (!$updated || $updated == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t update your order right now.'],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'order' => $updated
         ], 201);
     }
 }

@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/admin/create_kamar', [KamarController::class, 'addKamar']);
     
     Route::post('/create_order', [OrderController::class, 'createOrder']);
-    Route::patch('/confirm_payment', [OrderController::class, 'confirmOrder']);
+    Route::post('/confirm_payment/{order_id}', [OrderController::class, 'confirmOrder']);
     Route::patch('/admin/accept_payment', [OrderController::class, 'confirmUserPayment']);
     Route::get('/admin/getAllUserOrder', [OrderController::class, 'getAllUserOrder']);
     
