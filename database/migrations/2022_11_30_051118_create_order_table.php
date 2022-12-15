@@ -24,12 +24,13 @@ return new class extends Migration
             $table->integer('no_kamar');
             $table->string('metode_pembayaran');
             $table->string('bukti_pembayaran')->nullable();
+            $table->string('nama_document_pembayaran')->nullable();;
             $table->integer('total_harga');
             $table->string('status')->default('AWAITING_PAYMENT')->index();
             $table->string('deskripsi_status')->nullable()->index();
             $table->date('tanggal_pembayaran')->nullable();
             $table->string('foto_ktp');
-            $table->string('nama_document_ktp');
+            $table->string('nama_document_ktp')->index();
             $table->uuid('user_id')->index();
             $table->uuid('kamar_id');
             $table->foreign('kamar_id')->references('id')->on('kamar');

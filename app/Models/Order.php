@@ -24,6 +24,7 @@ class Order extends Model
         'durasi_kost',
         'no_kamar',
         'metode_pembayaran',
+        'nama_document_pembayaran',
         'nama_document_ktp',
         'foto_ktp',
         'bukti_pembayaran',
