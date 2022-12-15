@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function() {
 
     Route::post('/admin/create_kost', [KosController::class, 'addKos']);
+    Route::post('/admin/create_kost', [KosController::class, 'addKos']);
     Route::get('/getKost', [KosController::class, 'getKost']);
 
     Route::get('/paymentView', [KosController::class, 'getKost']);
@@ -32,6 +33,9 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/admin/create_kamar', [KamarController::class, 'addKamar']);
     
     Route::post('/create_order', [OrderController::class, 'createOrder']);
+    Route::patch('/confirm_payment', [OrderController::class, 'confirmOrder']);
+    Route::patch('/admin/accept_payment', [OrderController::class, 'confirmUserPayment']);
+    Route::get('/admin/getAllUserOrder', [OrderController::class, 'getAllUserOrder']);
     
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
     Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);

@@ -107,4 +107,27 @@ class OrderController extends Controller
             'order' => $existOrder
         ], 201);
     }
+
+    public function getAllUserOrder(){
+        $existOrder = $this->orderRepository->getAllUserOrder();
+
+        if($existOrder->isEmpty()){
+            return response()->json([
+                'success' => false,
+                'errors' => ['No order found'],
+            ], 400);
+        }
+
+        if (!$existOrder || $existOrder == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t create your order right now.'],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'order' => $existOrder
+        ], 201);
+    }
 }

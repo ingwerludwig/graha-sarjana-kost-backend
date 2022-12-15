@@ -41,4 +41,14 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
             return null;
         return $existOrder;
     }
+
+    public function getAllUserOrder(){
+        $userOrder = Order::where('status','!=','VERIFIED')->get();
+
+        if($userOrder->isEmpty())   
+            return collect([]);
+        if (!$userOrder || $userOrder == null) 
+            return null;
+        return $userOrder;
+    }
 }
