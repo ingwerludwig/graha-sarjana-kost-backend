@@ -6,6 +6,7 @@ use App\Http\Controllers\KosController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/confirm_payment/{order_id}', [OrderController::class, 'confirmOrder']);
     Route::patch('/admin/accept_payment', [OrderController::class, 'confirmUserPayment']);
     Route::get('/admin/getAllUserOrder', [OrderController::class, 'getAllUserOrder']);
+
+    Route::post('contact_us', [ContactUsController::class, 'send']);
     
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
     Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);
