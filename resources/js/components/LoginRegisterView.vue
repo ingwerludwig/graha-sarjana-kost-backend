@@ -18,7 +18,7 @@
             </div>
             <div v-if="!success" style="color: red; font-size: 14px;">*{{errorMsg}}</div>
             <div>
-                <button type="submit" class="green" @click="register()">{{buttTxt}}</button>
+                <button class="green" @click="register()">{{buttTxt}}</button>
             </div>
             <hr>
             <div>
@@ -54,7 +54,7 @@ import axios from 'axios'
                     const res = await axios.post('/api/create_user',{
                     username:this.fullname,
                     email:this.email,
-                    password:this.password},{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                    password:this.password},)
                     if(res.data.success){
                         console.log('success')
                         this.success = res.data.success

@@ -17,7 +17,7 @@ class UploadService{
     }
 
     public function upload($req){
-
+        if($req[''])
         $requestedKamar = KamarKost::where('id',$req['kamar_id'])->get();
         if(!$requestedKamar || $requestedKamar==null){return null;}
 
