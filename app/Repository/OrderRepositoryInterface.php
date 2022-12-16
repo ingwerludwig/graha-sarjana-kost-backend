@@ -10,4 +10,5 @@ interface OrderRepositoryInterface
     public function getOrderById($order_id);
     public function getAllUserOrder();
     public function updateBukti($req);
+    public function cancelOrder($order_id);
 }

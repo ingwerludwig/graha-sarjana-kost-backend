@@ -44,7 +44,8 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
     }
 
     public function getAllUserOrder(){
-        $userOrder = Order::where('status','!=','VERIFIED')->get();
+        $userOrder = Order::where('status','!=','VERIFIED')
+        ->where('status','!=','CANCELED')->get();
 
         if($userOrder->isEmpty())   
             return collect([]);
@@ -67,5 +68,20 @@ class OrderRepositoryImpl implements OrderRepositoryInterface
             return null;
         $userOrder = Order::where('id',$req['order_id'])->get();
         return $userOrder;
+    }
+
+    public function cancelOrder($order_id){
+        $cancelOrder = Order::where('id',$order_id)
+        ->update([
+            'status' => 'CANCELED',
+            'deskripsi_status' => null,
+            'nama_document_pembayaran' => null,
+            'bukti_pembayaran' => null,
+        ]);
+
+        if (!$cancelOrder || $cancelOrder == null) 
+            return null;
+        $cancelOrder = Order::where('id',$order_id)->get();
+        return $cancelOrder;
     }
 }

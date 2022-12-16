@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/admin/getAllUserOrder', [OrderController::class, 'getAllUserOrder']);
 
     Route::post('contact_us', [ContactUsController::class, 'send']);
+    Route::patch('/cancelOrder/{order_id}',[OrderController::class, 'cancelOrder']);
     
     Route::get('/getUserOrder', [OrderController::class, 'getUserOrder']);
     Route::get('/getKamarDetails/{kamar_id}', [KamarController::class, 'getKamarDetails']);

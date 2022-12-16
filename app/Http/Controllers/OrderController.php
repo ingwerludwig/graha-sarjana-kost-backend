@@ -181,4 +181,10 @@ class OrderController extends Controller
             'order' => $updated
         ], 201);
     }
+
+    public function cancelOrder($order_id){
+        $existOrder = $this->orderRepository->getOrderById($order_id);
+
+        
+    }
 }
