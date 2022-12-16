@@ -3,7 +3,8 @@
 <div class="payment-container">
         <div class="payment-content">
             <div style="font-size: 28px; font-weight: 700; text-align: left;">My Orders</div>
-            <div class="orders-wrapper" v-for="order in orders" :key="order.id">
+            <div style="font-style: italic;" v-if="orders.length == 0">No orders available</div>
+            <div class="orders-wrapper" v-for="order in orders" :key="order.id" v-if="orders.length != 0">
                 <div class="order">
                     <div style="font-size: 22px; font-weight: 700;">Kamar {{ order.no_kamar }}</div>
                     <div>Metode pembayaran: {{ order.metode_pembayaran }}</div>
