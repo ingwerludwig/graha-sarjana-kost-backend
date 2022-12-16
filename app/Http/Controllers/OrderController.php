@@ -185,17 +185,10 @@ class OrderController extends Controller
     public function cancelOrder($order_id){
         $existOrder = $this->orderRepository->cancelOrder($order_id);
         
-        if($existOrder->isEmpty()){
-            return response()->json([
-                'success' => false,
-                'errors' => ['No order found'],
-            ], 400);
-        }
-
         if (!$existOrder || $existOrder == null){
             return response()->json([
                 'success' => false,
-                'errors' => ['Can\'t create your order right now.'],
+                'errors' => ['Can\'t found order.'],
             ], 500);
         }
 
