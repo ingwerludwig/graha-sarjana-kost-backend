@@ -183,8 +183,26 @@ class OrderController extends Controller
     }
 
     public function cancelOrder($order_id){
-        $existOrder = $this->orderRepository->getOrderById($order_id);
-
+        $existOrder = $this->orderRepository->cancelOrder($order_id);
         
+        if($existOrder->isEmpty()){
+            return response()->json([
+                'success' => false,
+                'errors' => ['No order found'],
+            ], 400);
+        }
+
+        if (!$existOrder || $existOrder == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t create your order right now.'],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your order has been canceled',
+            'order' => $existOrder
+        ], 201);
     }
 }
