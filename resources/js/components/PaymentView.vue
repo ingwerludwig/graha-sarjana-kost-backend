@@ -8,11 +8,11 @@
             <div style="font-size: 30px; font-weight: 700; margin: 10px 0px;">Rp {{ order.total_harga }}</div>
             <div class="metode_pembayaran">{{ order.metode_pembayaran }}</div>
             <div style="text-align: left; margin-top: 10px;">
-                <label for="" style="font-size: 12px; font-weight: 700;">Upload your payment file<input type="file" name="" id=""></label>
+                <label for="" style="font-size: 12px; font-weight: 700;">Upload your payment file<input type="file" name="" id="file"></label>
             </div>
             <div style="margin-top: 20px; display: flex;">
-                <div><button class="green">CONFIRM PAYMENT</button></div>
-                <div><button class="red">CANCEL BOOKING</button></div>
+                <div><button class="green" @click="confirmCancel('confirm')">CONFIRM PAYMENT</button></div>
+                <div><button class="red" @click="confirmCancel('cancel')">CANCEL BOOKING</button></div>
             </div>
         </div>
     </div>
@@ -62,6 +62,27 @@ export default{
             }
             return new_price.join('')
         },
+        confirmCancel(action){
+            if(action == 'confirm'){
+                var formData = new FormData();
+                var imagefile = document.querySelector('#file')
+                formData.append("bukti_pembayaran", imagefile.files[0])
+
+                axios.post('/api/confirm_payment/' + this.$route.params.id,formData, {headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}}).then(res => {
+                    if(res.data.success) this.$router.push('/history')
+                }).catch(err =>{
+                    console.log(err)
+                })
+            }
+            else{
+                axios.post('' + this.$route.params.id,{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}).then(res => {
+                    if(res.data.success) this.$router.push('/history')
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            
+        }
     },
     mounted(){
         this.getOrder()
