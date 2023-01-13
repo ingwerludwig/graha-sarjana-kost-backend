@@ -6,7 +6,7 @@ use App\Models\Kost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddKostRequest;
-use App\Repository\FQHFOQ\KostRepositoryInterface;
+use App\Repository\KostRepositoryInterface;
 
 class KosController extends Controller
 {
