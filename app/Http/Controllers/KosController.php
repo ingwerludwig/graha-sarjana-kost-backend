@@ -6,6 +6,7 @@ use App\Models\Kost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddKostRequest;
+use App\Models\KostMongoDB;
 use App\Repository\KostRepositoryInterface;
 
 class KosController extends Controller
@@ -18,7 +19,8 @@ class KosController extends Controller
 
     public function addKos(AddKostRequest $request){
         $req = Kost::addAdditionalData($request->validated());
-
+        
+        $kost = KostMongoDB::create($req);
         $created = $this->kostRepository->saveKost($req);
        
         if (!$created || $created == null){
@@ -28,9 +30,17 @@ class KosController extends Controller
             ], 500);
         }
 
+        if (!$kost || $kost == null){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t create your Kos right now on MongoDB.'],
+            ], 500);
+        }
+
         return response()->json([
             'success' => true,
-            'kost' => $created
+            'kost' => $created,
+            'kost_mongodb' => $kost
         ], 201);
     }
 
