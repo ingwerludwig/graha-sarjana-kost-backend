@@ -17,6 +17,7 @@ class KostMongoDB extends Model
         'fasilitas_listrik',
         'fasilitas_air',
         'no_telp',
+        'location',
         'created_at',
         'updated_at',
     ];

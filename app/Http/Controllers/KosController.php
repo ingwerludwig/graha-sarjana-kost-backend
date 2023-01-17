@@ -18,9 +18,11 @@ class KosController extends Controller
     }
 
     public function addKos(AddKostRequest $request){
+        dd($request);
         $req = Kost::addAdditionalData($request->validated());
         
-        $kost = KostMongoDB::create($req);
+        //$kost = KostMongoDB::create($req);
+        $kost = $this->kostRepository->saveKostMongoDb($req);
         $created = $this->kostRepository->saveKost($req);
        
         if (!$created || $created == null){
@@ -63,7 +65,7 @@ class KosController extends Controller
 
     public function getNearestKost($lat,$long){
         $recommendKost = KostMongoDB::on('mongodb')
-        ->where('loc', 'near', 
+        ->where('location', 'near', 
             [ 
                 '$geometry' => [
                 'type' => 'Point',
