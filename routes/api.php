@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/admin/create_kost', [KosController::class, 'addKos']);
     Route::post('/admin/create_kost', [KosController::class, 'addKos']);
     Route::get('/getKost', [KosController::class, 'getKost']);
+    Route::get('/getRecommendKost', [KosController::class, 'getNearestKost']);
 
     Route::get('/paymentView', [KosController::class, 'getKost']);
 
