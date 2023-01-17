@@ -60,4 +60,26 @@ class KosController extends Controller
             'kost' => $existKos
         ], 201);
     }
+
+    public function getNearestKost($lat,$long){
+        $recommendKost = KostMongoDB::on('mongodb')
+        ->where('loc', 'near', 
+            [ 
+                '$geometry' => [
+                'type' => 'Point',
+                'coordinates' => [
+                    (float)$long,
+                    (float)$lat]], 
+                '$maxDistance' => (float)(150000)
+            ])
+            ->limit(10)
+            ->get()->transform(function($i) {
+                unset($i->_id);
+                return $i;
+            }
+        );
+
+        dd($recommendKost);
+
+    }
 }
