@@ -6,6 +6,7 @@ use App\Models\Kost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddKostRequest;
+use App\Http\Requests\GetNearestKostRequest;
 use App\Models\KostMongoDB;
 use App\Repository\KostRepositoryInterface;
 
@@ -63,15 +64,20 @@ class KosController extends Controller
         ], 201);
     }
 
-    public function getNearestKost($lat,$long){
+    public function getNearestKost(GetNearestKostRequest $request){
+
+        $req = $request->validated();
         $recommendKost = KostMongoDB::on('mongodb')
         ->where('location', 'near', 
             [ 
                 '$geometry' => [
                 'type' => 'Point',
-                'coordinates' => [
-                    (float)$long,
-                    (float)$lat]], 
+                'coordinates' => 
+                    [
+                        (float)$req->long,
+                        (float)$req->lat
+                    ]
+                ], 
                 '$maxDistance' => (float)(150000)
             ])
             ->limit(10)
