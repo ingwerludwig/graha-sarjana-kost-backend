@@ -53,11 +53,15 @@
 
 <script>
 import axios from 'axios'
+import Vue from 'vue'
     export default{
         data (){
             return{
                 rooms:[]
             }
+        },
+        beforeMount() {
+            this.getAllRepresentatives();
         },
         methods:{
             getRooms (){
@@ -76,6 +80,31 @@ import axios from 'axios'
                 new_price.splice(new_price.length-1-3*2,0,'.')
                 console.log(new_price)
                 return new_price.join('')
+            },
+
+            error(err){
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+            },
+            getAllRepresentatives() {
+		        if(navigator.geolocation){
+	                navigator.geolocation.getCurrentPosition(this.showPosition,this.error,{
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    });
+	            }else{
+	                this.error = "Geolocation is not supported."; 
+		        }
+            },
+	        showPosition(position){	
+                const crd = position.coords;
+                // console.log('Your current position is:');
+                localStorage.setItem('latitude', crd.latitude)
+                localStorage.setItem('longitude', crd.longitude)
+                console.log(localStorage.getItem('latitude'))
+                console.log(localStorage.getItem('longitude'))
+                
+                // console.log(`More or less ${crd.accuracy}meters.`);     
             }
         },
         mounted(){

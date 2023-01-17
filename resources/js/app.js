@@ -4,6 +4,9 @@ import router from './router'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
+/* import Geolocation library */
+import VueGeolocation from 'vue-browser-geolocation';
+
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -15,4 +18,4 @@ library.add(faUserSecret, faMaximize, faShower, faToilet, faBed, faBoxesPacking,
 
 
 
-createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app')
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router,VueGeolocation).mount('#app')
