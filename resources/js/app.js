@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+require('@geoapify/geocoder-autocomplete/styles/minimal.css')
 import router from './router'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'

@@ -4,6 +4,8 @@
         <div style="font-size: 32px; font-weight: bold; width: 100%;">Daftar Kos Graha Sarjana 1</div>
     </div>
     <hr style="width: 90%; color:#aaa; margin-top: 30px;">
+    
+    <div id="autocomplete" class="autocomplete-container" style="font-size: 18px; font-weight:550; width: 100%; height: 200%; position: center;">Enter your address here</div>
     <div class="daftar-kos">    
         <div class="information">
             <div id="map">
@@ -17,6 +19,10 @@
                 </div>
             </div>
         </div>
+
+        
+
+
         <div class="rooms-container">
             <div class="room" v-for="room in rooms" :key="room.id">
                 <div id="picture"><img src="../../assets/kamar/kamar1.jpg" alt=""></div>
@@ -52,8 +58,12 @@
 </template>
 
 <script>
+import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import axios from 'axios'
 import Vue from 'vue'
+import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
+
+
     export default{
         data (){
             return{
@@ -65,7 +75,20 @@ import Vue from 'vue'
         },
         methods:{
             getRooms (){
+                const autocomplete = new GeocoderAutocomplete(
+                        document.getElementById("autocomplete"), 
+                        '65dfa95a6e7f4d298245eec094f2a333');
+
+                autocomplete.on('select', (location) => {
+                    console.log(location);
+                });
+
+                autocomplete.on('suggestions', (suggestions) => {
+                    console.log(suggestions);
+                });
+
                 axios.get('/api/getKamarTersedia',{headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}}).then(response => (
+                    
                     this.rooms = response.data.kamar,
                     console.log(response.data),
                     this.rooms.forEach((room) => {
