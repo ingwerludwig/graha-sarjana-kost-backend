@@ -148,6 +148,15 @@ class KosController extends Controller
                 ]
             ]);
         });
-        dd($recommendKost);
+        $arrayRecommendKos = array();
+        foreach ($recommendKost as $key => $value) {
+            $arrayRecommendKos[$key] = $value->getOriginal();
+        }
+        return response()->json([
+            'success' => true,
+            'kosts' => $arrayRecommendKos
+        ], 201);
+        //dd($arrayRecommendKos);
+        //dd($recommendKost[0]->getOriginal());
     }
 }
