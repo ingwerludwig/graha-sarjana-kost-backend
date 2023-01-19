@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb')->create('kost',function(Blueprint $table){
-            $table->uuid('id')->primary();
-            $table->string('nama_kost');
-            $table->string('alamat');
-            $table->string('fasilitas_listrik');
-            $table->string('fasilitas_air');
-            $table->string('no_telp');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->boolean('status')->default(true);
-        });
+        // Schema::connection('mongodb')->create('kost',function(Blueprint $table){
+        //     $table->uuid('id')->primary();
+        //     $table->string('nama_kost');
+        //     $table->string('alamat');
+        //     $table->string('fasilitas_listrik');
+        //     $table->string('fasilitas_air');
+        //     $table->string('no_telp');
+        //     $table->timestamp('created_at')->useCurrent();
+        //     $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+        //     $table->boolean('status')->default(true);
+        // });
     }
 
     /**

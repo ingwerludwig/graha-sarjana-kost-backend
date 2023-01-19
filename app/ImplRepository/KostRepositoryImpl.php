@@ -3,13 +3,16 @@
 namespace App\ImplRepository;
 
 use App\Models\Kost;
+
+use App\Models\KostMongoDB;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\KostRepositoryInterface;
 
 class KostRepositoryImpl implements KostRepositoryInterface
 {
-    public function getKostByFirstAsc(){
+    public function getKostByFirstAsc()
+    {
         $existKos = Kost::first();
 
         if (!$existKos || $existKos == null)
@@ -17,9 +20,20 @@ class KostRepositoryImpl implements KostRepositoryInterface
         return $existKos;
     }
 
-    public function saveKost($req){
+    public function saveKost($req)
+    {
         $created = Kost::create($req);
-       
+
+        if (!$created || $created == null)
+            return null;
+        return $created;
+    }
+
+    public function saveKostMongodb($kost)
+    {
+        $created = KostMongoDB::create($kost);
+        //create index 2dsphere
+        KostMongoDB::raw()->createIndex(['location' => '2dsphere']);
         if (!$created || $created == null)
             return null;
         return $created;

@@ -31,6 +31,8 @@ class AddKostRequest extends FormRequest
             'fasilitas_listrik' => 'required|string',
             'fasilitas_air' => 'required|string',
             'no_telp' => 'required|string|max:13',
+            'lat' => 'required',
+            'long' => 'required',
         ];
     }
 
