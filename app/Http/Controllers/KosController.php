@@ -148,6 +148,14 @@ class KosController extends Controller
                 ]
             ]);
         });
+
+        if (!$recommendKost || $recommendKost == null) {
+            return response()->json([
+                'success' => false,
+                'errors' => ['Can\'t get array reccomend kos data right now.'],
+            ], 500);
+        }
+
         $arrayRecommendKos = array();
         foreach ($recommendKost as $key => $value) {
             $arrayRecommendKos[$key] = $value->getOriginal();
