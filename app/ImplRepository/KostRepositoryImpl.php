@@ -32,7 +32,8 @@ class KostRepositoryImpl implements KostRepositoryInterface
     public function saveKostMongodb($kost)
     {
         $created = KostMongoDB::create($kost);
-
+        //create index 2dsphere
+        KostMongoDB::raw()->createIndex(['location' => '2dsphere']);
         if (!$created || $created == null)
             return null;
         return $created;

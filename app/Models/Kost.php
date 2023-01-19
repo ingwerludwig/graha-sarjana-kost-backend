@@ -20,19 +20,19 @@ class Kost extends Model
         'fasilitas_listrik',
         'fasilitas_air',
         'no_telp',
+        'status',
         'created_at',
         'updated_at',
     ];
-    
+
 
     protected $table = 'kost';
 
-    public static function addAdditionalData(Array $req): Array
+    public static function addAdditionalData(array $req): array
     {
         $req['id'] = Uuid::generate()->string;
         $req['created_at'] = Carbon::now();
         $req['updated_at'] = Carbon::now();
-
         return $req;
     }
 }

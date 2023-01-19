@@ -21,6 +21,7 @@ class KostMongoDB extends Model
         'fasilitas_air',
         'no_telp',
         'location',
+        'status',
         'created_at',
         'updated_at',
     ];
@@ -32,11 +33,12 @@ class KostMongoDB extends Model
         $req['location'] = array(
             'type' => 'Point',
             'coordinates' => [
-                $req['long'],
-                $req['lat']
+                (float)$req['long'],
+                (float)$req['lat']
             ]
         );
         $req['id_postgre'] = $id;
+        $req['status'] = true;
 
         return $req;
     }
