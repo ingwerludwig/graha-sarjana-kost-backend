@@ -20,9 +20,6 @@
             </div>
         </div>
 
-        
-
-
         <div class="rooms-container">
             <div class="room" v-for="room in rooms" :key="room.id">
                 <div id="picture"><img src="../../assets/kamar/kamar1.jpg" alt=""></div>
@@ -75,12 +72,21 @@ import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
         },
         methods:{
             getRooms (){
-                const autocomplete = new GeocoderAutocomplete(
-                        document.getElementById("autocomplete"), 
-                        '65dfa95a6e7f4d298245eec094f2a333');
-
+                const autocomplete = new GeocoderAutocomplete(document.getElementById("autocomplete"), '65dfa95a6e7f4d298245eec094f2a333');
+                
                 autocomplete.on('select', (location) => {
-                    console.log(location);
+                    let data = {
+                        long : location["properties"]["long"],
+                        lat : location["properties"]["lat"]
+                    }
+                    axios.post('/api/getRecommendKost', data, {headers:{'Content-Type': 'multipart/form-data',Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                    .then(response => {
+                        console.log(location["properties"]["long"]);
+                        console.log(location["properties"]["lat"]);
+                        console.log(response.data);
+                    }).catch(error => 
+                        console.log(error)
+                    )
                 });
 
                 autocomplete.on('suggestions', (suggestions) => {
@@ -233,5 +239,73 @@ import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
     width: 80%;
     font-size: 18px;
     margin: 0px 0px 15px 5%;
+}
+
+.autocomplete-container {
+  /*the container must be positioned relative:*/
+  position: relative;
+  
+  margin-bottom: 20px;
+}
+
+.autocomplete-container input {
+  width: calc(100% - 43px);
+  outline: none;
+  
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-right: 31px;
+  font-size: 16px;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  
+  background-color: #fff;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-items .autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.clear-button {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  
+  position: absolute;
+  right: 5px;
+  top: 0;
+
+  height: 100%;
+  display: none;
+  align-items: center;
+}
+
+.clear-button.visible {
+  display: flex;
+}
+
+
+.clear-button:hover {
+  color: rgba(0, 0, 0, 0.6);
 }
 </style>

@@ -82,7 +82,6 @@ import axios from 'axios'
                             'token': res.data.authorization.token,
                             'name': res.data.user.username
                         }
-                        console.log('di login', user)
                         localStorage.clear()
                         localStorage.setItem('user', JSON.stringify(user))
                         localStorage.setItem('token', res.data.authorization.token)
@@ -116,7 +115,6 @@ import axios from 'axios'
     mounted(){
         if(this.type == 'login') this.isLogin = false
         else this.isLogin = true
-        console.log('type', this.type)
         this.registerOn()
     }
   }
